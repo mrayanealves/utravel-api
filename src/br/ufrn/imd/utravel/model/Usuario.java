@@ -44,7 +44,7 @@ public class Usuario extends AbstractModel{
 	}
 
 	@Override
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -83,10 +83,6 @@ public class Usuario extends AbstractModel{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	@Override
