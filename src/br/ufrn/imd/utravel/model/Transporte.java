@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import br.ufrn.imd.enums.EnumTipoTransporte;
+import br.ufrn.imd.utravel.enums.EnumTipoTransporte;
 
 @Entity
 @Table(name = "transorte")

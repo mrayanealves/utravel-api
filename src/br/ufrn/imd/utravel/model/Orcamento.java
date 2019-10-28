@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import br.ufrn.imd.enums.EnumTipoOrcamento;
+import br.ufrn.imd.utravel.enums.EnumTipoOrcamento;
 
 @Entity
 @Table(name = "orcamento")

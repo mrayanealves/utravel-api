@@ -1,4 +1,4 @@
-package br.ufrn.imd.enums;
+package br.ufrn.imd.utravel.enums;
 
 public enum EnumTipoHospedagem {
 	HOTEL, HOSTEL, POUSADA, APARTAMENTO_ALUGADO, 
