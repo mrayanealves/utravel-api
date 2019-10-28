@@ -17,7 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import br.ufrn.imd.enums.EnumTipoHospedagem;
+import br.ufrn.imd.utravel.enums.EnumTipoHospedagem;
 
 @Entity
 @Table(name = "hospedagem")
