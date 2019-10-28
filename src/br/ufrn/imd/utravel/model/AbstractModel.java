@@ -4,6 +4,6 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class AbstractModel {
-	public abstract void setId(Long id);
+	public abstract void setId(long id);
 	public abstract long getId();
 }
