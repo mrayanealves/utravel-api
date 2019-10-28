@@ -16,20 +16,20 @@ import br.ufrn.imd.utravel.model.AbstractModel;
 import br.ufrn.imd.utravel.service.AbstractService;
 
 public abstract class AbstractController <T extends AbstractModel> {
-	protected abstract AbstractService<T> negocio();
+	protected abstract AbstractService<T> service();
 	
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/")
 	public List<T> buscarTodos(){
-		return negocio().buscarTodos();
+		return service().buscarTodos();
 	}
 	
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/{id}")
 	public T buscarPorId(@PathParam("id") long id){	
-		return negocio().buscarPorId(id);
+		return service().buscarPorId(id);
 	}
 	
 	@POST
@@ -37,19 +37,19 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@Produces("application/json; charset=UTF-8")
 	@Path("/")
 	public T salvar(T entity) {
-		return negocio().salvar(entity);
+		return service().salvar(entity);
 	}
 	
 	@DELETE
 	@Produces("application/json; charset=UTF-8")
 	@Path("/{id}")
 	public ResponseBuilder remover(@PathParam("id") long id){
-		T entity = negocio().buscarPorId(id);
+		T entity = service().buscarPorId(id);
 		
 		if (entity == null) {
 			return Response.status(404);
 		}
 		
-		return Response.ok(negocio().remover(entity));
+		return Response.ok(service().remover(entity));
 	}
 }
