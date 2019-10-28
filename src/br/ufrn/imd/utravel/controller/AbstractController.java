@@ -52,6 +52,4 @@ public abstract class AbstractController <T extends AbstractModel> {
 		
 		return Response.ok(negocio().remover(entity));
 	}
-	
-
 }

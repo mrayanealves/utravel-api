@@ -1,5 +1,6 @@
 package br.ufrn.imd.utravel.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,9 +21,11 @@ public class Usuario extends AbstractModel{
 	private String nome;
 	
 	@NotBlank
+	@Column(unique = true)
 	private String login;
 	
 	@NotBlank
+	@Column(unique = true)
 	private String email;
 	
 	@NotBlank
