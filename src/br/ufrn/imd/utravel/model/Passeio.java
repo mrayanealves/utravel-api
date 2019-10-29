@@ -2,7 +2,6 @@ package br.ufrn.imd.utravel.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -30,7 +28,7 @@ public class Passeio extends AbstractModel {
 	
 	private String tipo;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "empresa_passeio",
 	           joinColumns = @JoinColumn(name = "id_passeio", referencedColumnName = "id"),
 	           inverseJoinColumns = @JoinColumn(name = "id_empresa", referencedColumnName = "id")
@@ -40,10 +38,6 @@ public class Passeio extends AbstractModel {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_passeio")
-	private List<Avaliacao> avaliacoes;
 	
 	public Passeio() {
 	}
@@ -55,7 +49,6 @@ public class Passeio extends AbstractModel {
 		this.tipo = tipo;
 		this.empresasOfertantes = empresasOfertantes;
 		this.endereco = endereco;
-		this.avaliacoes = avaliacoes;
 	}
 
 	@Override
@@ -98,14 +91,6 @@ public class Passeio extends AbstractModel {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Avaliacao> getAvaliacoes() {
-		return avaliacoes;
-	}
-
-	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
-		this.avaliacoes = avaliacoes;
 	}
 
 	@Override

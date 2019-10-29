@@ -29,15 +29,36 @@ public class Avaliacao extends AbstractModel{
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuarioAvaliador;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_empresa")
+	private Empresa empresa;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_hospedagem")
+	private Hospedagem hospedagem;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_passeio")
+	private Passeio passeio;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_restaurante")
+	private Restaurante restaurante;
+	
 	public Avaliacao() {
 	}
 	
-	public Avaliacao(long id, @NotNull int notaAtendimento, String comentario, 
-			@NotNull Usuario usuarioAvaliador) {
+	public Avaliacao(long id, @NotNull int notaAtendimento, String comentario, Usuario usuarioAvaliador,
+			Empresa empresa, Hospedagem hospedagem, Passeio passeio, Restaurante restaurante) {
+		super();
 		this.id = id;
 		this.notaAtendimento = notaAtendimento;
 		this.comentario = comentario;
 		this.usuarioAvaliador = usuarioAvaliador;
+		this.empresa = empresa;
+		this.hospedagem = hospedagem;
+		this.passeio = passeio;
+		this.restaurante = restaurante;
 	}
 
 	@Override
@@ -72,6 +93,38 @@ public class Avaliacao extends AbstractModel{
 
 	public void setUsuarioAvaliador(Usuario usuarioAvaliador) {
 		this.usuarioAvaliador = usuarioAvaliador;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public Hospedagem getHospedagem() {
+		return hospedagem;
+	}
+
+	public void setHospedagem(Hospedagem hospedagem) {
+		this.hospedagem = hospedagem;
+	}
+
+	public Passeio getPasseio() {
+		return passeio;
+	}
+
+	public void setPasseio(Passeio passeio) {
+		this.passeio = passeio;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 
 	@Override

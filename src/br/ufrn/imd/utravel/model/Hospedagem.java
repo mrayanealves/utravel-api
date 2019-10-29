@@ -2,18 +2,15 @@ package br.ufrn.imd.utravel.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -43,10 +40,6 @@ public class Hospedagem extends AbstractModel {
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_hospedagem")
-	private List<Avaliacao> avaliacoes;
-	
 	public Hospedagem() {
 	}
 
@@ -57,7 +50,6 @@ public class Hospedagem extends AbstractModel {
 		this.quantidadeQuartos = quantidadeQuartos;
 		this.tipoHospedagem = tipoHospedagem;
 		this.endereco = endereco;
-		this.avaliacoes = avaliacoes;
 	}
 
 	@Override
@@ -100,14 +92,6 @@ public class Hospedagem extends AbstractModel {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Avaliacao> getAvaliacoes() {
-		return avaliacoes;
-	}
-
-	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
-		this.avaliacoes = avaliacoes;
 	}
 
 	@Override
