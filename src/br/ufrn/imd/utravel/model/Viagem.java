@@ -31,6 +31,9 @@ public class Viagem extends AbstractModel{
 	@NotBlank
 	private String titulo;
 	
+	@Column(name = "objetivo")
+	private String objetivo;
+	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_inicio")
@@ -63,10 +66,11 @@ public class Viagem extends AbstractModel{
 	public Viagem() {
 	}
 	
-	public Viagem(long id, @NotBlank String titulo, @NotNull Date dataInicio, Date dataFim,
+	public Viagem(long id, @NotBlank String titulo, String objetivo, @NotNull Date dataInicio, Date dataFim,
 			@NotEmpty List<Localizacao> destinos, @NotEmpty List<Usuario> usuarios) {
 		this.id = id;
 		this.titulo = titulo;
+		this.objetivo = objetivo;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.destinos = destinos;
@@ -89,6 +93,14 @@ public class Viagem extends AbstractModel{
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public String getObjetivo() {
+		return objetivo;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
 	}
 
 	public Date getDataInicio() {

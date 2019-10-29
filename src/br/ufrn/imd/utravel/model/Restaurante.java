@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "restaurante")
@@ -31,15 +32,20 @@ public class Restaurante extends AbstractModel {
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
 	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_empresa")
+	private Empresa empresa;
+	
 	public Restaurante() {
 	}
 	
 	public Restaurante(long id, @NotBlank String nome, int numeroEstrelas, Endereco endereco,
-			List<Avaliacao> avaliacoes) {
+			List<Avaliacao> avaliacoes, @NotNull Empresa empresa) {
 		this.id = id;
 		this.nome = nome;
 		this.numeroEstrelas = numeroEstrelas;
 		this.endereco = endereco;
+		this.empresa = empresa;
 	}
 
 	@Override
@@ -74,6 +80,14 @@ public class Restaurante extends AbstractModel {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Override
