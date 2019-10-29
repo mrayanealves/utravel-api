@@ -45,11 +45,16 @@ public class Avaliacao extends AbstractModel{
 	@JoinColumn(name = "id_restaurante")
 	private Restaurante restaurante;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_veiculo_alugado")
+	private VeiculoAlugado veiculoAlugado;
+	
 	public Avaliacao() {
 	}
 	
 	public Avaliacao(long id, @NotNull int notaAtendimento, String comentario, Usuario usuarioAvaliador,
-			Empresa empresa, Hospedagem hospedagem, Passeio passeio, Restaurante restaurante) {
+			Empresa empresa, Hospedagem hospedagem, Passeio passeio, Restaurante restaurante, 
+			VeiculoAlugado veiculoAlugado) {
 		super();
 		this.id = id;
 		this.notaAtendimento = notaAtendimento;
@@ -59,6 +64,7 @@ public class Avaliacao extends AbstractModel{
 		this.hospedagem = hospedagem;
 		this.passeio = passeio;
 		this.restaurante = restaurante;
+		this.veiculoAlugado = veiculoAlugado;
 	}
 
 	@Override
@@ -125,6 +131,14 @@ public class Avaliacao extends AbstractModel{
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+
+	public VeiculoAlugado getVeiculoAlugado() {
+		return veiculoAlugado;
+	}
+
+	public void setVeiculoAlugado(VeiculoAlugado veiculoAlugado) {
+		this.veiculoAlugado = veiculoAlugado;
 	}
 
 	@Override

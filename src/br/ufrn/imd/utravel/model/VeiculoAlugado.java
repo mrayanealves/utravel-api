@@ -2,14 +2,12 @@ package br.ufrn.imd.utravel.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -32,10 +30,6 @@ public class VeiculoAlugado extends AbstractModel {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_empresa")
 	private Empresa empresaLocadora;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_restaurante")
-	private List<Avaliacao> avaliacoes;
 
 	public VeiculoAlugado() {
 	}
@@ -48,7 +42,6 @@ public class VeiculoAlugado extends AbstractModel {
 		this.modelo = modelo;
 		this.marca = marca;
 		this.empresaLocadora = empresaLocadora;
-		this.avaliacoes = avaliacoes;
 	}
 
 	@Override
@@ -99,14 +92,6 @@ public class VeiculoAlugado extends AbstractModel {
 
 	public void setEmpresaLocadora(Empresa empresaLocadora) {
 		this.empresaLocadora = empresaLocadora;
-	}
-
-	public List<Avaliacao> getAvaliacoes() {
-		return avaliacoes;
-	}
-
-	public void setAvaliacoes(List<Avaliacao> avaliacoes) {
-		this.avaliacoes = avaliacoes;
 	}
 
 	@Override
