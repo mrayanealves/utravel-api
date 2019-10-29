@@ -10,10 +10,10 @@ import br.ufrn.imd.utravel.repository.UsuarioRepository;
 @Stateless
 public class UsuarioService extends AbstractService<Usuario> {
 	@Inject
-	private UsuarioRepository usuarioRepositorio;
+	private UsuarioRepository reository;
 	
 	@Override
-	protected AbstractRepository<Usuario> repositorio() {
-		return this.usuarioRepositorio;
+	protected AbstractRepository<Usuario> repository() {
+		return this.reository;
 	}
 }

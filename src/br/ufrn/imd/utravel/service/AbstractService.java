@@ -9,26 +9,26 @@ import br.ufrn.imd.utravel.model.AbstractModel;
 import br.ufrn.imd.utravel.repository.AbstractRepository;
 
 public abstract class AbstractService<T extends AbstractModel> {
-	protected abstract AbstractRepository<T> repositorio();
+	protected abstract AbstractRepository<T> repository();
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<T> buscarTodos(){
-		return repositorio().buscarTodos();
+		return repository().buscarTodos();
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public T buscarPorId(long id) {
-		return repositorio().buscarPorId(id);
+		return repository().buscarPorId(id);
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public T salvar(T entity) {
-		return repositorio().salvar(entity);
+		return repository().salvar(entity);
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public String remover(T entity) {
-		repositorio().remover(entity);
+		repository().remover(entity);
 		
 		return "Removido com sucesso";
 	}

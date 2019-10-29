@@ -12,11 +12,11 @@ import br.ufrn.imd.utravel.service.UsuarioService;
 @Path("/usuario")
 public class UsuarioController extends AbstractController<Usuario>{
 	@EJB
-	private UsuarioService usuarioServico;
+	private UsuarioService service;
 	
 	@Override
-	protected AbstractService<Usuario> negocio() {
-		return usuarioServico;
+	protected AbstractService<Usuario> service() {
+		return service;
 	}
 	
 }
