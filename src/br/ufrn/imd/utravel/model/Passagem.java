@@ -50,17 +50,22 @@ public class Passagem extends AbstractModel {
 	)
 	private List<Endereco> enderecosParadas;
 	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_empresa")
+	private Empresa empresa;
+	
 	public Passagem() {
 	}
 	
 	public Passagem(long id, @NotNull Date dataPartida, Date dataChegada, Endereco enderecoSaidaOrigem,
-			Endereco enderecoChegadaDestino, List<Endereco> enderecosParadas) {
+			Endereco enderecoChegadaDestino, List<Endereco> enderecosParadas, @NotNull Empresa empresa) {
 		this.id = id;
 		this.dataPartida = dataPartida;
 		this.dataChegada = dataChegada;
 		this.enderecoSaidaOrigem = enderecoSaidaOrigem;
 		this.enderecoChegadaDestino = enderecoChegadaDestino;
 		this.enderecosParadas = enderecosParadas;
+		this.empresa = empresa;
 	}
 
 	@Override
@@ -111,6 +116,14 @@ public class Passagem extends AbstractModel {
 
 	public void setEnderecosParadas(List<Endereco> enderecosParadas) {
 		this.enderecosParadas = enderecosParadas;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Override
