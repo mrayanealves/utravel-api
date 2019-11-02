@@ -1,7 +1,5 @@
 package br.ufrn.imd.utravel.controller;
 
-import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,23 +19,23 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/")
-	public List<T> buscarTodos(){
-		return service().buscarTodos();
+	public Response buscarTodos(){
+		return Response.ok(service().buscarTodos()).build();
 	}
 	
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/{id}")
-	public T buscarPorId(@PathParam("id") long id){	
-		return service().buscarPorId(id);
+	public Response buscarPorId(@PathParam("id") long id){	
+		return Response.ok(service().buscarPorId(id)).build();
 	}
 	
 	@POST
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
 	@Path("/")
-	public T salvar(T entity) {
-		return service().salvar(entity);
+	public Response salvar(T entity) {
+		return Response.ok(service().salvar(entity)).build();
 	}
 	
 	@DELETE
