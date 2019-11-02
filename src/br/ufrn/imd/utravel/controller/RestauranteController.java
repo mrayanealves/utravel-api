@@ -7,7 +7,9 @@ import javax.ws.rs.Path;
 import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.service.AbstractService;
 import br.ufrn.imd.utravel.service.RestauranteService;
+import io.swagger.annotations.Api;
 
+@Api("Restaurante")
 @Stateless
 @Path("/restaurante")
 public class RestauranteController extends AbstractController<Restaurante>{
