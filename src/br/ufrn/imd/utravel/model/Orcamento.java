@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.ufrn.imd.utravel.enums.EnumTipoOrcamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "orcamento")
@@ -31,7 +32,7 @@ public class Orcamento extends AbstractModel{
 	@Column(name = "tipo_orcamento")
 	@Enumerated(EnumType.ORDINAL)
 	private EnumTipoOrcamento tipoOrcamento;
-	
+
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_viagem")
 	private Viagem viagem;	

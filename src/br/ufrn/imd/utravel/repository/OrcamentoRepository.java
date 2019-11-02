@@ -1,29 +1,29 @@
 package br.ufrn.imd.utravel.repository;
 
-import br.ufrn.imd.utravel.model.Viagem;
+import br.ufrn.imd.utravel.model.Orcamento;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 import java.util.List;
 
 @Stateless
-public class ViagemRepository extends AbstractRepository<Viagem> {
+public class OrcamentoRepository extends AbstractRepository<Orcamento> {
     @Override
-    public List<Viagem> buscarTodos() {
-        return (List<Viagem>) em.createQuery("select v from Viagem v").getResultList();
+    public List<Orcamento> buscarTodos() {
+        return (List<Orcamento>) em.createQuery("select e from Orcamento e").getResultList();
     }
 
     @Override
-    public Viagem buscarPorId(long id) {
+    public Orcamento buscarPorId(long id) {
         try {
-            return em.find(Viagem.class, id);
+            return em.find(Orcamento.class, id);
         } catch (NoResultException e) {
             return null;
         }
     }
 
     @Override
-    public Viagem salvar(Viagem entity) {
+    public Orcamento salvar(Orcamento entity) {
         if (entity.getId() > 0) {
             em.merge(entity);
         } else {
@@ -33,7 +33,7 @@ public class ViagemRepository extends AbstractRepository<Viagem> {
     }
 
     @Override
-    public void remover(Viagem entity) {
+    public void remover(Orcamento entity) {
         em.remove(entity);
     }
 }
