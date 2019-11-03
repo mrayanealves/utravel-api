@@ -5,6 +5,7 @@ import br.ufrn.imd.utravel.service.AbstractService;
 import br.ufrn.imd.utravel.service.OrcamentoService;
 import io.swagger.annotations.Api;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Path;
@@ -13,7 +14,7 @@ import javax.ws.rs.Path;
 @Stateless
 @Path("/orcamento")
 public class OrcamentoController extends AbstractController<Orcamento> {
-    @Inject
+    @EJB
     private OrcamentoService orcamentoService;
     @Override
     protected AbstractService<Orcamento> service() {
