@@ -38,6 +38,7 @@ public class AppServicesApplication extends Application {
         resources.add(VeiculoAlugadoController.class);
         resources.add(ViagemController.class);
         resources.add(OrcamentoController.class);
+        resources.add(AvaliacaoController.class);
 
         //classes do swagger...
         resources.add(ApiListingResource.class);
