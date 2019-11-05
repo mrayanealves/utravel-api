@@ -20,6 +20,7 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/")
+	@Secured
 	public Response buscarTodos(){
 		return Response.ok(service().buscarTodos()).build();
 	}
@@ -27,6 +28,7 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@GET
 	@Produces("application/json; charset=UTF-8")
 	@Path("/{id}")
+	@Secured
 	public Response buscarPorId(@PathParam("id") long id){	
 		return Response.ok(service().buscarPorId(id)).build();
 	}
@@ -35,6 +37,7 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@Consumes("application/json; charset=UTF-8")
 	@Produces("application/json; charset=UTF-8")
 	@Path("/")
+	@Secured
 	public Response salvar(T entity) {
 		return Response.ok(service().salvar(entity)).build();
 	}
@@ -42,6 +45,7 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@DELETE
 	@Produces("application/json; charset=UTF-8")
 	@Path("/{id}")
+	@Secured
 	public Response remover(@PathParam("id") long id){
 		T entity = service().buscarPorId(id);
 		
