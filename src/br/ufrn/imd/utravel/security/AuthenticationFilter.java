@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.security.Principal;
 
 import javax.annotation.Priority;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 
@@ -17,33 +20,36 @@ import io.jsonwebtoken.Claims;
 @Secured
 @Provider
 @Priority(Priorities.AUTHENTICATION)
-public class AuthenticationFilter implements ContainerRequestFilter{
-
+public class AuthenticationFilter implements ContainerRequestFilter {
+	@Inject
+	@AuthenticatedUser
+	Event<String> userAuthenticatedEvent;
+	
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		String header = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-		
-		if ((header == null) || (!header.startsWith("Bearer "))) {
-			throw new NotAuthorizedException("Authorization header fault.");
+		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+
+		if ((authorizationHeader == null) || (!authorizationHeader.startsWith("Bearer "))) {
+			throw new NotAuthorizedException("Authorization header required.");	
 		}
-		
-		String token = header.substring("Bearer".length()).trim();
-		
+
+		String token = authorizationHeader.substring("Bearer ".length()).trim();
+
 		try {
 			Claims claims = JWTUtil.decode(token);
-			
+
 			if (claims == null) {
-				throw new Exception();
+				throw new Exception("Token invalid.");
 			}
 			
-			System.out.println("Testando");
-			changeRequestContext(requestContext, claims.getSubject());
-			
+			this.changeRequestContext(requestContext, claims.getSubject());
+			this.userAuthenticatedEvent.fire(claims.getSubject());
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 		}
 	}
-	
+
 	private void changeRequestContext(ContainerRequestContext requestContext, String login) {
 		final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
 		requestContext.setSecurityContext(new SecurityContext() {

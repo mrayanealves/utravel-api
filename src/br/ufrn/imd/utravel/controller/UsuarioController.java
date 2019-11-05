@@ -2,6 +2,7 @@ package br.ufrn.imd.utravel.controller;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,17 +17,20 @@ import javax.ws.rs.core.SecurityContext;
 import br.ufrn.imd.utravel.dto.Login;
 import br.ufrn.imd.utravel.exception.LoginException;
 import br.ufrn.imd.utravel.model.Usuario;
+import br.ufrn.imd.utravel.security.AuthenticatedUser;
 import br.ufrn.imd.utravel.security.Secured;
 import br.ufrn.imd.utravel.service.AbstractService;
 import br.ufrn.imd.utravel.service.UsuarioService;
-import io.swagger.annotations.Api;
 
-@Api("Usuario")
 @Stateless
 @Path("/usuario")
 public class UsuarioController extends AbstractController<Usuario>{
 	@EJB
 	private UsuarioService service;
+	
+	@Inject
+	@AuthenticatedUser
+	private Usuario usuarioLogado;
 	
 	@Override
 	protected AbstractService<Usuario> service() {
@@ -51,7 +55,6 @@ public class UsuarioController extends AbstractController<Usuario>{
 	@Path("/logado")
 	@Secured
 	public Response logado(@Context SecurityContext securityContext) {
-		System.out.println(securityContext.getUserPrincipal().getName());
-		return Response.ok().build(); 
+		return Response.ok(usuarioLogado.getNome()).build(); 
 	}
 }
