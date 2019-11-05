@@ -19,7 +19,7 @@ public class AppServicesApplication extends Application {
         conf.setTitle("uTravel API");
         conf.setVersion("0.1");
         conf.setHost("localhost:8080");
-        conf.setBasePath("/utravel-api/api");
+        conf.setBasePath("/utravel/api");
         conf.setSchemes(new String[] {"http"});
         conf.setResourcePackage("br.ufrn.imd.utravel");
         conf.setScan(true);
