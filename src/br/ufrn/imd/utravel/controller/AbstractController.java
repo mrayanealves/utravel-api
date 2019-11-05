@@ -41,13 +41,13 @@ public abstract class AbstractController <T extends AbstractModel> {
 	@DELETE
 	@Produces("application/json; charset=UTF-8")
 	@Path("/{id}")
-	public ResponseBuilder remover(@PathParam("id") long id){
+	public Response remover(@PathParam("id") long id){
 		T entity = service().buscarPorId(id);
 		
 		if (entity == null) {
-			return Response.status(404);
+			return Response.status(404).build();
 		}
-		
-		return Response.ok(service().remover(entity));
+
+		return Response.ok(service().remover(entity)).build();
 	}
 }
