@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.ws.rs.Path;
 
 @Api("Viagem")
@@ -16,6 +15,7 @@ import javax.ws.rs.Path;
 public class ViagemController extends AbstractController<Viagem> {
     @EJB
     ViagemService viagemService;
+    
     @Override
     protected AbstractService<Viagem> service() {
         return viagemService;

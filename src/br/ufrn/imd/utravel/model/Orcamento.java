@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.ufrn.imd.utravel.enums.EnumTipoOrcamento;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "orcamento")

@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.ws.rs.Path;
 
 @Api("Orcamento")
@@ -16,6 +15,7 @@ import javax.ws.rs.Path;
 public class OrcamentoController extends AbstractController<Orcamento> {
     @EJB
     private OrcamentoService orcamentoService;
+    
     @Override
     protected AbstractService<Orcamento> service() {
         return orcamentoService;

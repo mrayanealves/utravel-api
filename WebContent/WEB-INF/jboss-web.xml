@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-	<context-root>utravel-api</context-root>
+	<context-root>utravel</context-root>
 </jboss-web>
