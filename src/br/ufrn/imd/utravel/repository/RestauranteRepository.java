@@ -28,12 +28,12 @@ public class RestauranteRepository extends AbstractRepository<Restaurante>{
 	@Override
 	public Restaurante salvar(Restaurante entity) {
 		if (entity.getId() > 0) {
-			em.persist(entity);
-			
+			em.merge(entity);
+
 			return entity;
 		} else {
-			em.merge(entity);
-			
+			em.persist(entity);
+
 			return entity;
 		}
 	}
