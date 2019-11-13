@@ -12,12 +12,12 @@ import io.swagger.annotations.Api;
 @Api("Restaurante")
 @Stateless
 @Path("/restaurante")
-public class RestauranteController extends AbstractController<Restaurante>{
-	@EJB
-	private RestauranteService service;
+public class RestauranteController extends AbstractController<Restaurante> {
+    @EJB
+    private RestauranteService service;
 
-	@Override
-	protected AbstractService<Restaurante> service() {
-		return this.service;
-	}
+    @Override
+    protected AbstractService<Restaurante> service() {
+        return this.service;
+    }
 }

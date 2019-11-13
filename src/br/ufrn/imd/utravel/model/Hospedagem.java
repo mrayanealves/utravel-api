@@ -21,112 +21,112 @@ import br.ufrn.imd.utravel.enums.EnumTipoHospedagem;
 @Entity
 @Table(name = "hospedagem")
 public class Hospedagem extends AbstractModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HOSPEDAGEM")
-	@SequenceGenerator(name = "SEQ_HOSPEDAGEM", sequenceName = "seq_id_hospedagem", allocationSize = 1)
-	private long id;
-	
-	@NotBlank
-	@Column(unique = true)
-	private String codigo;
-	
-	@Column(name = "quantidade_quartos")
-	private int quantidadeQuartos;
-	
-	@Column(name = "tipo_hospedagem")
-	@Enumerated(EnumType.ORDINAL)
-	private EnumTipoHospedagem tipoHospedagem;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_endereco")
-	private Endereco endereco;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_empresa")
-	private Empresa empresa;
-	
-	public Hospedagem() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HOSPEDAGEM")
+    @SequenceGenerator(name = "SEQ_HOSPEDAGEM", sequenceName = "seq_id_hospedagem", allocationSize = 1)
+    private long id;
 
-	public Hospedagem(long id, @NotBlank String codigo, int quantidadeQuartos, EnumTipoHospedagem tipoHospedagem,
-			Endereco endereco, List<Avaliacao> avaliacoes, @NotNull Empresa empresa) {
-		this.id = id;
-		this.codigo = codigo;
-		this.quantidadeQuartos = quantidadeQuartos;
-		this.tipoHospedagem = tipoHospedagem;
-		this.endereco = endereco;
-		this.empresa = empresa;
-	}
+    @NotBlank
+    @Column(unique = true)
+    private String codigo;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Column(name = "quantidade_quartos")
+    private int quantidadeQuartos;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @Column(name = "tipo_hospedagem")
+    @Enumerated(EnumType.ORDINAL)
+    private EnumTipoHospedagem tipoHospedagem;
 
-	public String getCodigo() {
-		return codigo;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_empresa")
+    private Empresa empresa;
 
-	public int getQuantidadeQuartos() {
-		return quantidadeQuartos;
-	}
+    public Hospedagem() {
+    }
 
-	public void setQuantidadeQuartos(int quantidadeQuartos) {
-		this.quantidadeQuartos = quantidadeQuartos;
-	}
+    public Hospedagem(long id, @NotBlank String codigo, int quantidadeQuartos, EnumTipoHospedagem tipoHospedagem,
+                      Endereco endereco, List<Avaliacao> avaliacoes, @NotNull Empresa empresa) {
+        this.id = id;
+        this.codigo = codigo;
+        this.quantidadeQuartos = quantidadeQuartos;
+        this.tipoHospedagem = tipoHospedagem;
+        this.endereco = endereco;
+        this.empresa = empresa;
+    }
 
-	public EnumTipoHospedagem getTipoHospedagem() {
-		return tipoHospedagem;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setTipoHospedagem(EnumTipoHospedagem tipoHospedagem) {
-		this.tipoHospedagem = tipoHospedagem;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
+    public String getCodigo() {
+        return codigo;
+    }
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public int getQuantidadeQuartos() {
+        return quantidadeQuartos;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+    public void setQuantidadeQuartos(int quantidadeQuartos) {
+        this.quantidadeQuartos = quantidadeQuartos;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public EnumTipoHospedagem getTipoHospedagem() {
+        return tipoHospedagem;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Hospedagem other = (Hospedagem) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public void setTipoHospedagem(EnumTipoHospedagem tipoHospedagem) {
+        this.tipoHospedagem = tipoHospedagem;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Hospedagem other = (Hospedagem) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

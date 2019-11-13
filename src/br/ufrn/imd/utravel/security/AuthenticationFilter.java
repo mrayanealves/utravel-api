@@ -21,63 +21,58 @@ import io.jsonwebtoken.Claims;
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class AuthenticationFilter implements ContainerRequestFilter {
-	@Inject
-	@AuthenticatedUser
-	Event<String> userAuthenticatedEvent;
-	
-	@Override
-	public void filter(ContainerRequestContext requestContext) throws IOException {
-		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+    @Override
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+        String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-		if ((authorizationHeader == null) || (!authorizationHeader.startsWith("Bearer "))) {
-			throw new NotAuthorizedException("Authorization header required.");	
-		}
+        if ((authorizationHeader == null) || (!authorizationHeader.startsWith("Bearer "))) {
+            throw new NotAuthorizedException("Authorization header required.");
+        }
 
-		String token = authorizationHeader.substring("Bearer ".length()).trim();
+        String token = authorizationHeader.substring("Bearer ".length()).trim();
 
-		try {
-			Claims claims = JWTUtil.decode(token);
+        try {
+            Claims claims = JWTUtil.decode(token);
 
-			if (claims == null) {
-				throw new Exception("Token invalid.");
-			}
-			
-			this.changeRequestContext(requestContext, claims.getSubject());
-			this.userAuthenticatedEvent.fire(claims.getSubject());
-		} catch (Exception e) {
-			e.printStackTrace();
-			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
-		}
-	}
+            if (claims == null) {
+                throw new Exception("Token invalid.");
+            }
 
-	private void changeRequestContext(ContainerRequestContext requestContext, String login) {
-		final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
-		requestContext.setSecurityContext(new SecurityContext() {
+            this.changeRequestContext(requestContext, claims.getSubject());
+        } catch (Exception e) {
+            e.printStackTrace();
+            requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+        }
+    }
 
-			@Override
-			public Principal getUserPrincipal() {				
-				return new Principal() {
-					@Override
-					public String getName() {
-						return login;
-					}
-				};
-			}
+    private void changeRequestContext(ContainerRequestContext requestContext, String login) {
+        final SecurityContext currentSecurityContext = requestContext.getSecurityContext();
+        requestContext.setSecurityContext(new SecurityContext() {
 
-			@Override
-			public boolean isUserInRole(String role) {
-				return true;
-			}
+            @Override
+            public Principal getUserPrincipal() {
+                return new Principal() {
+                    @Override
+                    public String getName() {
+                        return login;
+                    }
+                };
+            }
 
-			@Override
-			public boolean isSecure() {
-				return currentSecurityContext.isSecure();
-			}
+            @Override
+            public boolean isUserInRole(String role) {
+                return true;
+            }
 
-			@Override
-			public String getAuthenticationScheme() {
-				return "Bearer";
-			}
-		});
-	}
+            @Override
+            public boolean isSecure() {
+                return currentSecurityContext.isSecure();
+            }
+
+            @Override
+            public String getAuthenticationScheme() {
+                return "Bearer";
+            }
+        });
+    }
 }

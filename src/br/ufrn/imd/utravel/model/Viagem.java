@@ -25,141 +25,141 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "viagem")
-public class Viagem extends AbstractModel{
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_VIAGEM")
-	@SequenceGenerator(name = "SEQ_VIAGEM", sequenceName = "seq_id_viagem", allocationSize = 1)
-	private long id;
-	
-	@NotBlank
-	private String titulo;
-	
-	@Column(name = "objetivo")
-	private String objetivo;
-	
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_inicio")
-	private Date dataInicio;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_fim")
-	private Date dataFim;
-	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "viagem_destino",
-	           joinColumns = @JoinColumn(name = "id_viagem", referencedColumnName = "id"),
-	           inverseJoinColumns = @JoinColumn(name = "id_localizacao", referencedColumnName = "id")
-	)
-	private List<Localizacao> destinos;
+public class Viagem extends AbstractModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_VIAGEM")
+    @SequenceGenerator(name = "SEQ_VIAGEM", sequenceName = "seq_id_viagem", allocationSize = 1)
+    private long id;
 
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "viagem_usuarios",
-	           joinColumns = @JoinColumn(name = "id_viagem", referencedColumnName = "id"),
-	           inverseJoinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"),
-	           uniqueConstraints = {
-	        		   @UniqueConstraint(name = "viagem_usuario_uniques", 
-	        				             columnNames = {"id_viagem", "id_usuario"})
-	           }
-	)
-	@NotEmpty
-	private List<Usuario> usuarios;
+    @NotBlank
+    private String titulo;
 
-	public Viagem() {
-		this.usuarios = new ArrayList<Usuario>();
-		this.destinos = new ArrayList<Localizacao>();
-	}
-	
-	public Viagem(long id, @NotBlank String titulo, String objetivo, @NotNull Date dataInicio, Date dataFim,
-			@NotEmpty List<Localizacao> destinos, @NotEmpty List<Usuario> usuarios) {
-		this.id = id;
-		this.titulo = titulo;
-		this.objetivo = objetivo;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
-		this.destinos = destinos;
-		this.usuarios = usuarios;
-	}
+    @Column(name = "objetivo")
+    private String objetivo;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_inicio")
+    private Date dataInicio;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_fim")
+    private Date dataFim;
+    
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "viagem_destino",
+            joinColumns = @JoinColumn(name = "id_viagem", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_localizacao", referencedColumnName = "id")
+    )
+    private List<Localizacao> destinos;
 
-	public String getTitulo() {
-		return titulo;
-	}
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "viagem_usuarios",
+            joinColumns = @JoinColumn(name = "id_viagem", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id"),
+            uniqueConstraints = {
+                    @UniqueConstraint(name = "viagem_usuario_uniques",
+                            columnNames = {"id_viagem", "id_usuario"})
+            }
+    )
+    @NotEmpty
+    private List<Usuario> usuarios;
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    public Viagem() {
+    	this.usuarios = new ArrayList<Usuario>();
+    	this.destinos = new ArrayList<Localizacao>();
+    }
 
-	public String getObjetivo() {
-		return objetivo;
-	}
+    public Viagem(long id, @NotBlank String titulo, String objetivo, @NotNull Date dataInicio, Date dataFim,
+                  @NotEmpty List<Localizacao> destinos, @NotEmpty List<Usuario> usuarios) {
+        this.id = id;
+        this.titulo = titulo;
+        this.objetivo = objetivo;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.destinos = destinos;
+        this.usuarios = usuarios;
+    }
 
-	public void setObjetivo(String objetivo) {
-		this.objetivo = objetivo;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Date getDataInicio() {
-		return dataInicio;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
+    public String getTitulo() {
+        return titulo;
+    }
 
-	public Date getDataFim() {
-		return dataFim;
-	}
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
+    public String getObjetivo() {
+        return objetivo;
+    }
 
-	public List<Localizacao> getDestinos() {
-		return destinos;
-	}
+    public void setObjetivo(String objetivo) {
+        this.objetivo = objetivo;
+    }
 
-	public void setDestinos(List<Localizacao> destinos) {
-		this.destinos = destinos;
-	}
+    public Date getDataInicio() {
+        return dataInicio;
+    }
 
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
 
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
+    public Date getDataFim() {
+        return dataFim;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Viagem other = (Viagem) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public List<Localizacao> getDestinos() {
+        return destinos;
+    }
+
+    public void setDestinos(List<Localizacao> destinos) {
+        this.destinos = destinos;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Viagem other = (Viagem) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

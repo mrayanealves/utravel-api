@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="utravel-api">
-		<jta-data-source>java:/utravelDS</jta-data-source>
-		<class>br.ufrn.imd.utravel.model.AbstractModel</class>
-		<class>br.ufrn.imd.utravel.model.Usuario</class>
-		<class>br.ufrn.imd.utravel.model.Orcamento</class>
-		<class>br.ufrn.imd.utravel.model.Viagem</class>
-		<class>br.ufrn.imd.utravel.model.Localizacao</class>
-		<class>br.ufrn.imd.utravel.model.Endereco</class>
-		<class>br.ufrn.imd.utravel.model.Avaliacao</class>
-		<class>br.ufrn.imd.utravel.model.Empresa</class>
-		<class>br.ufrn.imd.utravel.model.Hospedagem</class>
-		<class>br.ufrn.imd.utravel.model.Restaurante</class>
-		<class>br.ufrn.imd.utravel.model.VeiculoAlugado</class>
-		<class>br.ufrn.imd.utravel.model.Passagem</class>
-		<class>br.ufrn.imd.utravel.model.Transporte</class>
-		<class>br.ufrn.imd.utravel.model.Passeio</class>
-		<class>br.ufrn.imd.utravel.model.Evento</class>
-		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-			<property name="hibernate.show_sql" value="true"/>
-			<property name="hibernate.hbm2ddl.auto" value="update"/>
-			<property name="hibernate.connection.charSet" value="UTF-8"/>
-		</properties>
-	</persistence-unit>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="utravel-api">
+        <jta-data-source>java:/utravelDS</jta-data-source>
+        <class>br.ufrn.imd.utravel.model.AbstractModel</class>
+        <class>br.ufrn.imd.utravel.model.Usuario</class>
+        <class>br.ufrn.imd.utravel.model.Orcamento</class>
+        <class>br.ufrn.imd.utravel.model.Viagem</class>
+        <class>br.ufrn.imd.utravel.model.Localizacao</class>
+        <class>br.ufrn.imd.utravel.model.Endereco</class>
+        <class>br.ufrn.imd.utravel.model.Avaliacao</class>
+        <class>br.ufrn.imd.utravel.model.Empresa</class>
+        <class>br.ufrn.imd.utravel.model.Hospedagem</class>
+        <class>br.ufrn.imd.utravel.model.Restaurante</class>
+        <class>br.ufrn.imd.utravel.model.VeiculoAlugado</class>
+        <class>br.ufrn.imd.utravel.model.Passagem</class>
+        <class>br.ufrn.imd.utravel.model.Transporte</class>
+        <class>br.ufrn.imd.utravel.model.Passeio</class>
+        <class>br.ufrn.imd.utravel.model.Evento</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+        </properties>
+    </persistence-unit>
 </persistence>

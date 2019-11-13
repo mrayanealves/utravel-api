@@ -8,12 +8,12 @@ import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.VeiculoAlugadoRepository;
 
 @Stateless
-public class VeiculoAlugadoService extends AbstractService<VeiculoAlugado>{
-	@Inject
-	private VeiculoAlugadoRepository repository;
+public class VeiculoAlugadoService extends AbstractService<VeiculoAlugado> {
+    @Inject
+    private VeiculoAlugadoRepository repository;
 
-	@Override
-	protected AbstractRepository<VeiculoAlugado> repository() {
-		return this.repository;
-	}
+    @Override
+    protected AbstractRepository<VeiculoAlugado> repository() {
+        return this.repository;
+    }
 }

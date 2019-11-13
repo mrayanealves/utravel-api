@@ -21,112 +21,112 @@ import br.ufrn.imd.utravel.enums.EnumTipoTransporte;
 @Entity
 @Table(name = "transorte")
 public class Transporte extends AbstractModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TRANSPORTE")
-	@SequenceGenerator(name = "SEQ_TRANSPORTE", sequenceName = "seq_id_transporte", allocationSize = 1)
-	private long id;
-	
-	@NotNull
-	private boolean proprio;
-	
-	@Column(name = "tipo_transporte")
-	@Enumerated(EnumType.ORDINAL)
-	private EnumTipoTransporte tipoTransporte;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_viagem")
-	private Viagem viagem;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_veiculo_alugado")
-	private VeiculoAlugado veiculoAlugado;
-	
-	@OneToMany
-	@JoinColumn(name = "id_transporte")
-	private List<Passagem> passagens;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_TRANSPORTE")
+    @SequenceGenerator(name = "SEQ_TRANSPORTE", sequenceName = "seq_id_transporte", allocationSize = 1)
+    private long id;
 
-	public Transporte() {
-	}
+    @NotNull
+    private boolean proprio;
 
-	public Transporte(long id, @NotNull boolean proprio, EnumTipoTransporte tipoTransporte, Viagem viagem,
-			VeiculoAlugado veiculoAlugado, List<Passagem> passagens) {
-		this.id = id;
-		this.proprio = proprio;
-		this.tipoTransporte = tipoTransporte;
-		this.viagem = viagem;
-		this.veiculoAlugado = veiculoAlugado;
-		this.passagens = passagens;
-	}
+    @Column(name = "tipo_transporte")
+    @Enumerated(EnumType.ORDINAL)
+    private EnumTipoTransporte tipoTransporte;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_viagem")
+    private Viagem viagem;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_veiculo_alugado")
+    private VeiculoAlugado veiculoAlugado;
 
-	public boolean isProprio() {
-		return proprio;
-	}
+    @OneToMany
+    @JoinColumn(name = "id_transporte")
+    private List<Passagem> passagens;
 
-	public void setProprio(boolean proprio) {
-		this.proprio = proprio;
-	}
+    public Transporte() {
+    }
 
-	public EnumTipoTransporte getTipoTransporte() {
-		return tipoTransporte;
-	}
+    public Transporte(long id, @NotNull boolean proprio, EnumTipoTransporte tipoTransporte, Viagem viagem,
+                      VeiculoAlugado veiculoAlugado, List<Passagem> passagens) {
+        this.id = id;
+        this.proprio = proprio;
+        this.tipoTransporte = tipoTransporte;
+        this.viagem = viagem;
+        this.veiculoAlugado = veiculoAlugado;
+        this.passagens = passagens;
+    }
 
-	public void setTipoTransporte(EnumTipoTransporte tipoTransporte) {
-		this.tipoTransporte = tipoTransporte;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Viagem getViagem() {
-		return viagem;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public void setViagem(Viagem viagem) {
-		this.viagem = viagem;
-	}
+    public boolean isProprio() {
+        return proprio;
+    }
 
-	public VeiculoAlugado getVeiculoAlugado() {
-		return veiculoAlugado;
-	}
+    public void setProprio(boolean proprio) {
+        this.proprio = proprio;
+    }
 
-	public void setVeiculoAlugado(VeiculoAlugado veiculoAlugado) {
-		this.veiculoAlugado = veiculoAlugado;
-	}
+    public EnumTipoTransporte getTipoTransporte() {
+        return tipoTransporte;
+    }
 
-	public List<Passagem> getPassagens() {
-		return passagens;
-	}
+    public void setTipoTransporte(EnumTipoTransporte tipoTransporte) {
+        this.tipoTransporte = tipoTransporte;
+    }
 
-	public void setPassagens(List<Passagem> passagens) {
-		this.passagens = passagens;
-	}
+    public Viagem getViagem() {
+        return viagem;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public void setViagem(Viagem viagem) {
+        this.viagem = viagem;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Transporte other = (Transporte) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public VeiculoAlugado getVeiculoAlugado() {
+        return veiculoAlugado;
+    }
+
+    public void setVeiculoAlugado(VeiculoAlugado veiculoAlugado) {
+        this.veiculoAlugado = veiculoAlugado;
+    }
+
+    public List<Passagem> getPassagens() {
+        return passagens;
+    }
+
+    public void setPassagens(List<Passagem> passagens) {
+        this.passagens = passagens;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Transporte other = (Transporte) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }
