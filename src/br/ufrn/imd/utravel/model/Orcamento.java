@@ -17,88 +17,88 @@ import br.ufrn.imd.utravel.enums.EnumTipoOrcamento;
 
 @Entity
 @Table(name = "orcamento")
-public class Orcamento extends AbstractModel{
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ORCAMENTO")
-	@SequenceGenerator(name = "SEQ_ORCAMENTO", sequenceName = "seq_id_orcamento", allocationSize = 1)
-	private long id;
-	
-	@NotNull
-	@Column(name = "valor_estimado")
-	private float valorEstimado;
-	
-	@NotNull
-	@Column(name = "tipo_orcamento")
-	@Enumerated(EnumType.ORDINAL)
-	private EnumTipoOrcamento tipoOrcamento;
+public class Orcamento extends AbstractModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ORCAMENTO")
+    @SequenceGenerator(name = "SEQ_ORCAMENTO", sequenceName = "seq_id_orcamento", allocationSize = 1)
+    private long id;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_viagem")
-	private Viagem viagem;	
-	
-	public Orcamento() {
-	}
-	
-	public Orcamento(long id, @NotNull float valorEstimado, @NotNull EnumTipoOrcamento tipoOrcamento, Viagem viagem) {
-		this.id = id;
-		this.valorEstimado = valorEstimado;
-		this.tipoOrcamento = tipoOrcamento;
-		this.viagem = viagem;
-	}
+    @NotNull
+    @Column(name = "valor_estimado")
+    private float valorEstimado;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @NotNull
+    @Column(name = "tipo_orcamento")
+    @Enumerated(EnumType.ORDINAL)
+    private EnumTipoOrcamento tipoOrcamento;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_viagem")
+    private Viagem viagem;
 
-	public float getValorEstimado() {
-		return valorEstimado;
-	}
+    public Orcamento() {
+    }
 
-	public void setValorEstimado(float valorEstimado) {
-		this.valorEstimado = valorEstimado;
-	}
+    public Orcamento(long id, @NotNull float valorEstimado, @NotNull EnumTipoOrcamento tipoOrcamento, Viagem viagem) {
+        this.id = id;
+        this.valorEstimado = valorEstimado;
+        this.tipoOrcamento = tipoOrcamento;
+        this.viagem = viagem;
+    }
 
-	public EnumTipoOrcamento getTipoOrcamento() {
-		return tipoOrcamento;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setTipoOrcamento(EnumTipoOrcamento tipoOrcamento) {
-		this.tipoOrcamento = tipoOrcamento;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public Viagem getViagem() {
-		return viagem;
-	}
+    public float getValorEstimado() {
+        return valorEstimado;
+    }
 
-	public void setViagem(Viagem viagem) {
-		this.viagem = viagem;
-	}
+    public void setValorEstimado(float valorEstimado) {
+        this.valorEstimado = valorEstimado;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public EnumTipoOrcamento getTipoOrcamento() {
+        return tipoOrcamento;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Orcamento other = (Orcamento) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public void setTipoOrcamento(EnumTipoOrcamento tipoOrcamento) {
+        this.tipoOrcamento = tipoOrcamento;
+    }
+
+    public Viagem getViagem() {
+        return viagem;
+    }
+
+    public void setViagem(Viagem viagem) {
+        this.viagem = viagem;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Orcamento other = (Orcamento) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

@@ -8,12 +8,12 @@ import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.PasseioRepository;
 
 @Stateless
-public class PasseioService extends AbstractService<Passeio>{
-	@Inject
-	private PasseioRepository repository;
+public class PasseioService extends AbstractService<Passeio> {
+    @Inject
+    private PasseioRepository repository;
 
-	@Override
-	protected AbstractRepository<Passeio> repository() {
-		return this.repository;
-	}
+    @Override
+    protected AbstractRepository<Passeio> repository() {
+        return this.repository;
+    }
 }

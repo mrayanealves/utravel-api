@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 public class OrcamentoController extends AbstractController<Orcamento> {
     @EJB
     private OrcamentoService orcamentoService;
-    
+
     @Override
     protected AbstractService<Orcamento> service() {
         return orcamentoService;

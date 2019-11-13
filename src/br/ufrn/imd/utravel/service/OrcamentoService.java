@@ -11,6 +11,7 @@ import javax.inject.Inject;
 public class OrcamentoService extends AbstractService<Orcamento> {
     @Inject
     private OrcamentoRepository orcamentoRepository;
+
     @Override
     protected AbstractRepository<Orcamento> repository() {
         return orcamentoRepository;

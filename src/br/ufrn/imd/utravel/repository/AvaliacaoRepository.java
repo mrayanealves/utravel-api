@@ -9,7 +9,7 @@ import java.util.List;
 @Stateless
 public class AvaliacaoRepository extends AbstractRepository<Avaliacao> {
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<Avaliacao> buscarTodos() {
         return (List<Avaliacao>) em.createQuery("select a from Avaliacao a").getResultList();
     }

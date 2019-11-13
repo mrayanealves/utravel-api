@@ -12,73 +12,73 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "endereco")
-public class Endereco extends AbstractModel{
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO")
-	@SequenceGenerator(name = "SEQ_ENDERECO", sequenceName = "seq_id_endereco", allocationSize = 1)
-	private long id;
-	
-	@NotBlank
-	private String endereco;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_localizacao")
-	private Localizacao localizacao;
+public class Endereco extends AbstractModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ENDERECO")
+    @SequenceGenerator(name = "SEQ_ENDERECO", sequenceName = "seq_id_endereco", allocationSize = 1)
+    private long id;
 
-	public Endereco() {
-	}
+    @NotBlank
+    private String endereco;
 
-	public Endereco(long id, @NotBlank String endereco, Localizacao localizacao) {
-		this.id = id;
-		this.endereco = endereco;
-		this.localizacao = localizacao;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_localizacao")
+    private Localizacao localizacao;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    public Endereco() {
+    }
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    public Endereco(long id, @NotBlank String endereco, Localizacao localizacao) {
+        this.id = id;
+        this.endereco = endereco;
+        this.localizacao = localizacao;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public Localizacao getLocalizacao() {
-		return localizacao;
-	}
+    public String getEndereco() {
+        return endereco;
+    }
 
-	public void setLocalizacao(Localizacao localizacao) {
-		this.localizacao = localizacao;
-	}
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public Localizacao getLocalizacao() {
+        return localizacao;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Endereco other = (Endereco) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public void setLocalizacao(Localizacao localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Endereco other = (Endereco) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

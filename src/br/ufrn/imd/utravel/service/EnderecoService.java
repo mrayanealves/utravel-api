@@ -8,12 +8,12 @@ import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.EnderecoRepository;
 
 @Stateless
-public class EnderecoService extends AbstractService<Endereco>{
-	@Inject
-	private EnderecoRepository repository;
+public class EnderecoService extends AbstractService<Endereco> {
+    @Inject
+    private EnderecoRepository repository;
 
-	@Override
-	protected AbstractRepository<Endereco> repository() {
-		return this.repository;
-	}
+    @Override
+    protected AbstractRepository<Endereco> repository() {
+        return this.repository;
+    }
 }

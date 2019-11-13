@@ -21,130 +21,130 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "passagem")
 public class Passagem extends AbstractModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PASSAGEM")
-	@SequenceGenerator(name = "SEQ_PASSAGEM", sequenceName = "seq_id_passagem", allocationSize = 1)
-	private long id;
-	
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_partida")
-	private Date dataPartida;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_chegada")
-	private Date dataChegada;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_endereco_saida_origem")
-	private Endereco enderecoSaidaOrigem;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_endereco_chegada_destino")
-	private Endereco enderecoChegadaDestino;
-	
-	@ManyToMany
-	@JoinTable(name = "passagem_enderecos_paradas",
-	           joinColumns = @JoinColumn(name = "id_passagem", referencedColumnName = "id"),
-	           inverseJoinColumns = @JoinColumn(name = "id_endereco_paradas", referencedColumnName = "id")
-	)
-	private List<Endereco> enderecosParadas;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_empresa")
-	private Empresa empresa;
-	
-	public Passagem() {
-	}
-	
-	public Passagem(long id, @NotNull Date dataPartida, Date dataChegada, Endereco enderecoSaidaOrigem,
-			Endereco enderecoChegadaDestino, List<Endereco> enderecosParadas, @NotNull Empresa empresa) {
-		this.id = id;
-		this.dataPartida = dataPartida;
-		this.dataChegada = dataChegada;
-		this.enderecoSaidaOrigem = enderecoSaidaOrigem;
-		this.enderecoChegadaDestino = enderecoChegadaDestino;
-		this.enderecosParadas = enderecosParadas;
-		this.empresa = empresa;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PASSAGEM")
+    @SequenceGenerator(name = "SEQ_PASSAGEM", sequenceName = "seq_id_passagem", allocationSize = 1)
+    private long id;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_partida")
+    private Date dataPartida;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_chegada")
+    private Date dataChegada;
 
-	public Date getDataPartida() {
-		return dataPartida;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_endereco_saida_origem")
+    private Endereco enderecoSaidaOrigem;
 
-	public void setDataPartida(Date dataPartida) {
-		this.dataPartida = dataPartida;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_endereco_chegada_destino")
+    private Endereco enderecoChegadaDestino;
 
-	public Date getDataChegada() {
-		return dataChegada;
-	}
+    @ManyToMany
+    @JoinTable(name = "passagem_enderecos_paradas",
+            joinColumns = @JoinColumn(name = "id_passagem", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_endereco_paradas", referencedColumnName = "id")
+    )
+    private List<Endereco> enderecosParadas;
 
-	public void setDataChegada(Date dataChegada) {
-		this.dataChegada = dataChegada;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_empresa")
+    private Empresa empresa;
 
-	public Endereco getEnderecoSaidaOrigem() {
-		return enderecoSaidaOrigem;
-	}
+    public Passagem() {
+    }
 
-	public void setEnderecoSaidaOrigem(Endereco enderecoSaidaOrigem) {
-		this.enderecoSaidaOrigem = enderecoSaidaOrigem;
-	}
+    public Passagem(long id, @NotNull Date dataPartida, Date dataChegada, Endereco enderecoSaidaOrigem,
+                    Endereco enderecoChegadaDestino, List<Endereco> enderecosParadas, @NotNull Empresa empresa) {
+        this.id = id;
+        this.dataPartida = dataPartida;
+        this.dataChegada = dataChegada;
+        this.enderecoSaidaOrigem = enderecoSaidaOrigem;
+        this.enderecoChegadaDestino = enderecoChegadaDestino;
+        this.enderecosParadas = enderecosParadas;
+        this.empresa = empresa;
+    }
 
-	public Endereco getEnderecoChegadaDestino() {
-		return enderecoChegadaDestino;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setEnderecoChegadaDestino(Endereco enderecoChegadaDestino) {
-		this.enderecoChegadaDestino = enderecoChegadaDestino;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public List<Endereco> getEnderecosParadas() {
-		return enderecosParadas;
-	}
+    public Date getDataPartida() {
+        return dataPartida;
+    }
 
-	public void setEnderecosParadas(List<Endereco> enderecosParadas) {
-		this.enderecosParadas = enderecosParadas;
-	}
+    public void setDataPartida(Date dataPartida) {
+        this.dataPartida = dataPartida;
+    }
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public Date getDataChegada() {
+        return dataChegada;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+    public void setDataChegada(Date dataChegada) {
+        this.dataChegada = dataChegada;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public Endereco getEnderecoSaidaOrigem() {
+        return enderecoSaidaOrigem;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Passagem other = (Passagem) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public void setEnderecoSaidaOrigem(Endereco enderecoSaidaOrigem) {
+        this.enderecoSaidaOrigem = enderecoSaidaOrigem;
+    }
+
+    public Endereco getEnderecoChegadaDestino() {
+        return enderecoChegadaDestino;
+    }
+
+    public void setEnderecoChegadaDestino(Endereco enderecoChegadaDestino) {
+        this.enderecoChegadaDestino = enderecoChegadaDestino;
+    }
+
+    public List<Endereco> getEnderecosParadas() {
+        return enderecosParadas;
+    }
+
+    public void setEnderecosParadas(List<Endereco> enderecosParadas) {
+        this.enderecosParadas = enderecosParadas;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Passagem other = (Passagem) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

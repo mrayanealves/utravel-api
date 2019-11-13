@@ -18,166 +18,166 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "evento")
 public class Evento extends AbstractModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EVENTO")
-	@SequenceGenerator(name = "SEQ_EVENTO", sequenceName = "seq_id_evento", allocationSize = 1)
-	private long id;
-	
-	@Column(name = "valor_estimado")
-	private float valorEstimado;
-	
-	@Column(name = "valor_total_gasto")
-	private float valorTotalGasto;
-	
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data")
-	private Date data;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_viagem")
-	private Viagem viagem;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_restaurante")
-	private Restaurante restaurante;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_hospedagem")
-	private Hospedagem hospedagem;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_passeio")
-	private Passeio passeio;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_veiculo_alugado")
-	private VeiculoAlugado veiculoAlugado;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_passagem")
-	private Passagem passagem;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EVENTO")
+    @SequenceGenerator(name = "SEQ_EVENTO", sequenceName = "seq_id_evento", allocationSize = 1)
+    private long id;
 
-	public Evento() {
-	}
+    @Column(name = "valor_estimado")
+    private float valorEstimado;
 
-	public Evento(long id, float valorEstimado, float valorTotalGasto, @NotNull Date data, Viagem viagem,
-			Restaurante restaurante, Hospedagem hospedagem, Passeio passeio, VeiculoAlugado veiculoAlugado,
-			Passagem passagem) {
-		super();
-		this.id = id;
-		this.valorEstimado = valorEstimado;
-		this.valorTotalGasto = valorTotalGasto;
-		this.data = data;
-		this.viagem = viagem;
-		this.restaurante = restaurante;
-		this.hospedagem = hospedagem;
-		this.passeio = passeio;
-		this.veiculoAlugado = veiculoAlugado;
-		this.passagem = passagem;
-	}
+    @Column(name = "valor_total_gasto")
+    private float valorTotalGasto;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data")
+    private Date data;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_viagem")
+    private Viagem viagem;
 
-	public float getValorEstimado() {
-		return valorEstimado;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_restaurante")
+    private Restaurante restaurante;
 
-	public void setValorEstimado(float valorEstimado) {
-		this.valorEstimado = valorEstimado;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_hospedagem")
+    private Hospedagem hospedagem;
 
-	public float getValorTotalGasto() {
-		return valorTotalGasto;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_passeio")
+    private Passeio passeio;
 
-	public void setValorTotalGasto(float valorTotalGasto) {
-		this.valorTotalGasto = valorTotalGasto;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_veiculo_alugado")
+    private VeiculoAlugado veiculoAlugado;
 
-	public Date getData() {
-		return data;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_passagem")
+    private Passagem passagem;
 
-	public void setData(Date data) {
-		this.data = data;
-	}
+    public Evento() {
+    }
 
-	public Viagem getViagem() {
-		return viagem;
-	}
+    public Evento(long id, float valorEstimado, float valorTotalGasto, @NotNull Date data, Viagem viagem,
+                  Restaurante restaurante, Hospedagem hospedagem, Passeio passeio, VeiculoAlugado veiculoAlugado,
+                  Passagem passagem) {
+        super();
+        this.id = id;
+        this.valorEstimado = valorEstimado;
+        this.valorTotalGasto = valorTotalGasto;
+        this.data = data;
+        this.viagem = viagem;
+        this.restaurante = restaurante;
+        this.hospedagem = hospedagem;
+        this.passeio = passeio;
+        this.veiculoAlugado = veiculoAlugado;
+        this.passagem = passagem;
+    }
 
-	public void setViagem(Viagem viagem) {
-		this.viagem = viagem;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public Restaurante getRestaurante() {
-		return restaurante;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
-	}
+    public float getValorEstimado() {
+        return valorEstimado;
+    }
 
-	public Hospedagem getHospedagem() {
-		return hospedagem;
-	}
+    public void setValorEstimado(float valorEstimado) {
+        this.valorEstimado = valorEstimado;
+    }
 
-	public void setHospedagem(Hospedagem hospedagem) {
-		this.hospedagem = hospedagem;
-	}
+    public float getValorTotalGasto() {
+        return valorTotalGasto;
+    }
 
-	public Passeio getPasseio() {
-		return passeio;
-	}
+    public void setValorTotalGasto(float valorTotalGasto) {
+        this.valorTotalGasto = valorTotalGasto;
+    }
 
-	public void setPasseio(Passeio passeio) {
-		this.passeio = passeio;
-	}
+    public Date getData() {
+        return data;
+    }
 
-	public VeiculoAlugado getVeiculoAlugado() {
-		return veiculoAlugado;
-	}
+    public void setData(Date data) {
+        this.data = data;
+    }
 
-	public void setVeiculoAlugado(VeiculoAlugado veiculoAlugado) {
-		this.veiculoAlugado = veiculoAlugado;
-	}
+    public Viagem getViagem() {
+        return viagem;
+    }
 
-	public Passagem getPassagem() {
-		return passagem;
-	}
+    public void setViagem(Viagem viagem) {
+        this.viagem = viagem;
+    }
 
-	public void setPassagem(Passagem passagem) {
-		this.passagem = passagem;
-	}
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Evento other = (Evento) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public Hospedagem getHospedagem() {
+        return hospedagem;
+    }
+
+    public void setHospedagem(Hospedagem hospedagem) {
+        this.hospedagem = hospedagem;
+    }
+
+    public Passeio getPasseio() {
+        return passeio;
+    }
+
+    public void setPasseio(Passeio passeio) {
+        this.passeio = passeio;
+    }
+
+    public VeiculoAlugado getVeiculoAlugado() {
+        return veiculoAlugado;
+    }
+
+    public void setVeiculoAlugado(VeiculoAlugado veiculoAlugado) {
+        this.veiculoAlugado = veiculoAlugado;
+    }
+
+    public Passagem getPassagem() {
+        return passagem;
+    }
+
+    public void setPassagem(Passagem passagem) {
+        this.passagem = passagem;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Evento other = (Evento) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

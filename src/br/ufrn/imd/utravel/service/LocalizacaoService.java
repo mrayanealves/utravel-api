@@ -8,12 +8,12 @@ import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.LocalizacaoRepository;
 
 @Stateless
-public class LocalizacaoService extends AbstractService<Localizacao>{
-	@Inject
-	private LocalizacaoRepository repository;
+public class LocalizacaoService extends AbstractService<Localizacao> {
+    @Inject
+    private LocalizacaoRepository repository;
 
-	@Override
-	protected AbstractRepository<Localizacao> repository() {
-		return this.repository;
-	}
+    @Override
+    protected AbstractRepository<Localizacao> repository() {
+        return this.repository;
+    }
 }
