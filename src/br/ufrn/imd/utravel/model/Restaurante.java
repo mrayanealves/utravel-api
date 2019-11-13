@@ -17,98 +17,98 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "restaurante")
 public class Restaurante extends AbstractModel {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_RESTAURANTE")
-	@SequenceGenerator(name = "SEQ_RESTAURANTE", sequenceName = "seq_id_restaurante", allocationSize = 1)
-	private long id;
-	
-	@NotBlank
-	private String nome;
-	
-	@Column(name = "numero_estrelas")
-	private int numeroEstrelas;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_endereco")
-	private Endereco endereco;
-	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "id_empresa")
-	private Empresa empresa;
-	
-	public Restaurante() {
-	}
-	
-	public Restaurante(long id, @NotBlank String nome, int numeroEstrelas, Endereco endereco,
-			List<Avaliacao> avaliacoes, @NotNull Empresa empresa) {
-		this.id = id;
-		this.nome = nome;
-		this.numeroEstrelas = numeroEstrelas;
-		this.endereco = endereco;
-		this.empresa = empresa;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_RESTAURANTE")
+    @SequenceGenerator(name = "SEQ_RESTAURANTE", sequenceName = "seq_id_restaurante", allocationSize = 1)
+    private long id;
 
-	@Override
-	public void setId(long id) {
-		this.id = id;
-	}
+    @NotBlank
+    private String nome;
 
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    @Column(name = "numero_estrelas")
+    private int numeroEstrelas;
 
-	public String getNome() {
-		return nome;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_empresa")
+    private Empresa empresa;
 
-	public int getNumeroEstrelas() {
-		return numeroEstrelas;
-	}
+    public Restaurante() {
+    }
 
-	public void setNumeroEstrelas(int numeroEstrelas) {
-		this.numeroEstrelas = numeroEstrelas;
-	}
+    public Restaurante(long id, @NotBlank String nome, int numeroEstrelas, Endereco endereco,
+                       List<Avaliacao> avaliacoes, @NotNull Empresa empresa) {
+        this.id = id;
+        this.nome = nome;
+        this.numeroEstrelas = numeroEstrelas;
+        this.endereco = endereco;
+        this.empresa = empresa;
+    }
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
+    @Override
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+    @Override
+    public long getId() {
+        return this.id;
+    }
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
+    public int getNumeroEstrelas() {
+        return numeroEstrelas;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Restaurante other = (Restaurante) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public void setNumeroEstrelas(int numeroEstrelas) {
+        this.numeroEstrelas = numeroEstrelas;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Restaurante other = (Restaurante) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 }

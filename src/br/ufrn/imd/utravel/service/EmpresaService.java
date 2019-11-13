@@ -8,12 +8,12 @@ import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.EmpresaRepository;
 
 @Stateless
-public class EmpresaService extends AbstractService<Empresa>{
-	@Inject
-	private EmpresaRepository repository;
-	
-	@Override
-	protected AbstractRepository<Empresa> repository() {
-		return this.repository;
-	}
+public class EmpresaService extends AbstractService<Empresa> {
+    @Inject
+    private EmpresaRepository repository;
+
+    @Override
+    protected AbstractRepository<Empresa> repository() {
+        return this.repository;
+    }
 }

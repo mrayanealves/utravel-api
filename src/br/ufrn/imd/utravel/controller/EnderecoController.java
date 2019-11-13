@@ -12,12 +12,12 @@ import io.swagger.annotations.Api;
 @Api("Endereco")
 @Stateless
 @Path("/endereco")
-public class EnderecoController extends AbstractController<Endereco>{
-	@EJB
-	private EnderecoService service;
-	
-	@Override
-	protected AbstractService<Endereco> service() {
-		return this.service;
-	}
+public class EnderecoController extends AbstractController<Endereco> {
+    @EJB
+    private EnderecoService service;
+
+    @Override
+    protected AbstractService<Endereco> service() {
+        return this.service;
+    }
 }

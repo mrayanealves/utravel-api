@@ -12,12 +12,12 @@ import io.swagger.annotations.Api;
 @Api("Localizacao")
 @Stateless
 @Path("/localizacao")
-public class LocalizacaoController extends AbstractController<Localizacao>{
-	@EJB
-	private LocalizacaoService service;
+public class LocalizacaoController extends AbstractController<Localizacao> {
+    @EJB
+    private LocalizacaoService service;
 
-	@Override
-	protected AbstractService<Localizacao> service() {
-		return this.service;
-	}
+    @Override
+    protected AbstractService<Localizacao> service() {
+        return this.service;
+    }
 }

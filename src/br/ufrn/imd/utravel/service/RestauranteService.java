@@ -8,12 +8,12 @@ import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.RestauranteRepository;
 
 @Stateless
-public class RestauranteService extends AbstractService<Restaurante>{
-	@Inject
-	private RestauranteRepository repository;
+public class RestauranteService extends AbstractService<Restaurante> {
+    @Inject
+    private RestauranteRepository repository;
 
-	@Override
-	protected AbstractRepository<Restaurante> repository() {
-		return this.repository;
-	}
+    @Override
+    protected AbstractRepository<Restaurante> repository() {
+        return this.repository;
+    }
 }

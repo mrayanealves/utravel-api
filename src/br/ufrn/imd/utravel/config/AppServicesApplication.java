@@ -17,12 +17,12 @@ import java.util.Set;
 public class AppServicesApplication extends Application {
     public AppServicesApplication() {
         super();
-    	BeanConfig conf = new BeanConfig();
+        BeanConfig conf = new BeanConfig();
         conf.setTitle("uTravel API");
         conf.setVersion("0.1");
         conf.setHost("localhost:8080");
         conf.setBasePath("/utravel/api");
-        conf.setSchemes(new String[] {"http"});
+        conf.setSchemes(new String[]{"http"});
         conf.setResourcePackage("br.ufrn.imd.utravel");
         conf.setScan(true);
     }

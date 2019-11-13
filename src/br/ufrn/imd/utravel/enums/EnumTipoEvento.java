@@ -1,5 +1,5 @@
 package br.ufrn.imd.utravel.enums;
 
 public enum EnumTipoEvento {
-	PASSEIO, HOSPEDAGEM, VEICULO_ALUGADO, RESTAURANTE;
+    PASSEIO, HOSPEDAGEM, VEICULO_ALUGADO, RESTAURANTE;
 }
