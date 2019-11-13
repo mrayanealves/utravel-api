@@ -42,7 +42,6 @@ public class ViagemService {
         }
 
         Usuario usuario = usuarioService.usuarioLogado(email);
-        System.out.println(usuario);
 
         viagem.setTitulo(viagemDTO.getTitulo());
         viagem.setObjetivo(viagemDTO.getObjetivo());
