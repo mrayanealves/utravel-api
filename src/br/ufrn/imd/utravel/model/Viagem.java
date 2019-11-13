@@ -2,6 +2,7 @@ package br.ufrn.imd.utravel.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,13 +45,13 @@ public class Viagem extends AbstractModel{
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_fim")
 	private Date dataFim;
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "viagem_destino",
 	           joinColumns = @JoinColumn(name = "id_viagem", referencedColumnName = "id"),
 	           inverseJoinColumns = @JoinColumn(name = "id_localizacao", referencedColumnName = "id")
 	)
-	@NotEmpty
 	private List<Localizacao> destinos;
 
 	@JsonIgnore
@@ -67,6 +68,8 @@ public class Viagem extends AbstractModel{
 	private List<Usuario> usuarios;
 
 	public Viagem() {
+		this.usuarios = new ArrayList<Usuario>();
+		this.destinos = new ArrayList<Localizacao>();
 	}
 	
 	public Viagem(long id, @NotBlank String titulo, String objetivo, @NotNull Date dataInicio, Date dataFim,
