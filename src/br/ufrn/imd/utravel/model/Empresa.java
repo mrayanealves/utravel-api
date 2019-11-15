@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "empresa")
@@ -26,6 +27,7 @@ public class Empresa extends AbstractModel {
     @NotBlank
     private String documento;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;

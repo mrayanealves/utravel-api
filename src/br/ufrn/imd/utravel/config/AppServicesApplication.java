@@ -1,8 +1,6 @@
 package br.ufrn.imd.utravel.config;
 
 import br.ufrn.imd.utravel.controller.*;
-import br.ufrn.imd.utravel.model.Passeio;
-import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.security.AuthenticationFilter;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
@@ -42,6 +40,9 @@ public class AppServicesApplication extends Application {
         resources.add(OrcamentoController.class);
         resources.add(AvaliacaoController.class);
 
+        // Providers
+        resources.add(CorsFilter.class);
+        resources.add(ConstraintViolationExceptionHandler.class);
 
         //classes do swagger...
         resources.add(ApiListingResource.class);

@@ -34,6 +34,7 @@ public class Evento extends AbstractModel {
     @Column(name = "data")
     private Date data;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_viagem")
     private Viagem viagem;

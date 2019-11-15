@@ -25,6 +25,7 @@ public class Avaliacao extends AbstractModel {
 
     private String comentario;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_usuario")
     private Usuario usuarioAvaliador;

@@ -1,5 +1,6 @@
 package br.ufrn.imd.utravel.controller;
 
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -38,7 +39,7 @@ public abstract class AbstractController<T extends AbstractModel> {
     @Produces("application/json; charset=UTF-8")
     @Path("/")
     @Secured
-    public Response salvar(T entity) {
+    public Response salvar(@Valid T entity) {
         return Response.ok(service().salvar(entity)).build();
     }
 

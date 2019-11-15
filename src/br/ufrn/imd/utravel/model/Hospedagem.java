@@ -41,6 +41,7 @@ public class Hospedagem extends AbstractModel {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
