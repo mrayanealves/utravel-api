@@ -3,15 +3,20 @@ package br.ufrn.imd.utravel.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "empresa")
@@ -31,6 +36,10 @@ public class Empresa extends AbstractModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.EAGER)
+    private List<Avaliacao> avaliacoes;
 
     public Empresa() {
     }
@@ -75,6 +84,23 @@ public class Empresa extends AbstractModel {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+    
+    @JsonProperty("avaliacaoMedia")
+    public float notaMediaAvaliacoes() {
+    	if (this.avaliacoes == null || 
+    			this.avaliacoes.isEmpty() || 
+    			this.avaliacoes.size() == 0) {
+			return 0;
+		}
+    	
+    	int somaNotas = 0;
+    	
+    	for(Avaliacao avaliacao : this.avaliacoes) {
+    		somaNotas+=avaliacao.getNotaAtendimento();
+    	}
+    	
+    	return somaNotas/this.avaliacoes.size();
     }
 
     @Override
