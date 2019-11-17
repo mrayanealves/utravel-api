@@ -12,14 +12,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "empresa")
+@Table(name = "empresa",
+uniqueConstraints = {
+        @UniqueConstraint(
+                name = "nome_documento_endereco_uniques",
+                columnNames = {"nome", "documento", "id_endereco"}
+        )
+})
 public class Empresa extends AbstractModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EMPRESA")
@@ -32,8 +38,7 @@ public class Empresa extends AbstractModel {
     @NotBlank
     private String documento;
 
-    @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
     

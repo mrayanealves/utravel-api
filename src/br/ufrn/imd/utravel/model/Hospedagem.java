@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import br.ufrn.imd.utravel.enums.EnumTipoHospedagem;
 
@@ -27,7 +26,7 @@ public class Hospedagem extends AbstractModel {
     private long id;
 
     @NotBlank
-    @Column(unique = true)
+    @Column
     private String codigo;
 
     @Column(name = "quantidade_quartos")
@@ -41,8 +40,7 @@ public class Hospedagem extends AbstractModel {
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
-    @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
 
@@ -50,7 +48,7 @@ public class Hospedagem extends AbstractModel {
     }
 
     public Hospedagem(long id, @NotBlank String codigo, int quantidadeQuartos, EnumTipoHospedagem tipoHospedagem,
-                      Endereco endereco, List<Avaliacao> avaliacoes, @NotNull Empresa empresa) {
+                      Endereco endereco, List<Avaliacao> avaliacoes, Empresa empresa) {
         this.id = id;
         this.codigo = codigo;
         this.quantidadeQuartos = quantidadeQuartos;
