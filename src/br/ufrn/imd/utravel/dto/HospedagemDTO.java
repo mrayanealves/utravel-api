@@ -8,6 +8,7 @@ public class HospedagemDTO {
 	private EnumTipoHospedagem tipoHospedagem;
 	private EnderecoDTO enderecoDTO;
 	private EmpresaDTO empresaDTO;
+	private long viagem;
 	
 	public String getCodigo() {
 		return codigo;
@@ -47,5 +48,13 @@ public class HospedagemDTO {
 	
 	public void setEmpresaDTO(EmpresaDTO empresaDTO) {
 		this.empresaDTO = empresaDTO;
+	}
+
+	public long getViagem() {
+		return viagem;
+	}
+
+	public void setViagem(long viagem) {
+		this.viagem = viagem;
 	}
 }
