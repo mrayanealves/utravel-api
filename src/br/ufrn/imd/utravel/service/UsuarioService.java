@@ -2,8 +2,6 @@ package br.ufrn.imd.utravel.service;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.SecurityContext;
 
 import br.ufrn.imd.utravel.dto.Login;
 import br.ufrn.imd.utravel.exception.LoginException;
@@ -33,7 +31,7 @@ public class UsuarioService extends AbstractService<Usuario> {
         return JWTUtil.create(usuarioCadastrado.getEmail());
     }
 
-    public Usuario usuarioLogado(String email) {
+    public Usuario encontrarUsuarioLogado(String email) {
         return repository.buscarUsuarioPorEmail(email);
     }
 }

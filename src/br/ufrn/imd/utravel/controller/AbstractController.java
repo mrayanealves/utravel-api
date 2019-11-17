@@ -14,7 +14,6 @@ import br.ufrn.imd.utravel.model.AbstractModel;
 import br.ufrn.imd.utravel.security.Secured;
 import br.ufrn.imd.utravel.service.AbstractService;
 
-@Secured
 public abstract class AbstractController<T extends AbstractModel> {
     protected abstract AbstractService<T> service();
 
