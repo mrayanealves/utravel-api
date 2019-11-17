@@ -35,10 +35,12 @@ public class Passagem extends AbstractModel {
     @Column(name = "data_chegada")
     private Date dataChegada;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco_saida_origem")
     private Endereco enderecoSaidaOrigem;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_endereco_chegada_destino")
     private Endereco enderecoChegadaDestino;
@@ -50,6 +52,7 @@ public class Passagem extends AbstractModel {
     )
     private List<Endereco> enderecosParadas;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;

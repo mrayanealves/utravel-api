@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "endereco")
@@ -21,6 +22,7 @@ public class Endereco extends AbstractModel {
     @NotBlank
     private String endereco;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_localizacao")
     private Localizacao localizacao;

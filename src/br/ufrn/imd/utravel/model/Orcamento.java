@@ -32,6 +32,7 @@ public class Orcamento extends AbstractModel {
     @Enumerated(EnumType.ORDINAL)
     private EnumTipoOrcamento tipoOrcamento;
 
+    @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_viagem")
     private Viagem viagem;
