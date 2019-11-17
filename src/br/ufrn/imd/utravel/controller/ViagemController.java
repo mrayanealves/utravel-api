@@ -1,5 +1,6 @@
 package br.ufrn.imd.utravel.controller;
 
+import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
@@ -50,7 +51,7 @@ public class ViagemController {
     @Secured
     public Response salvar(ViagemDTO viagemDTO, @Context SecurityContext securityContext) {
         try {
-            Usuario usuario = usuarioService.encontrarUsuarioLogado(securityContext.getUserPrincipal().getName());
+            Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
             
             return Response.ok(viagemService.salvar(viagemDTO, usuario)).build();
         } catch (ParseException e) {
@@ -74,5 +75,17 @@ public class ViagemController {
         }
 
         return Response.ok(viagemService.remover(viagem)).build();
+    }
+    
+    @POST
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    @Path("/{id}/adicionar/participantes")
+    @Secured
+    public Response adicionarParticipantes(@PathParam("id") long id, GrupoUsuariosDTO grupoUsuariosDTO, 
+    										@Context SecurityContext securityContext) {
+    	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
+    	
+    	return Response.ok(viagemService.adicionarParticipantes(id, grupoUsuariosDTO, usuario)).build();
     }
 }

@@ -2,6 +2,7 @@ package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.OrcamentoDTO;
 import br.ufrn.imd.utravel.model.Orcamento;
+import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.OrcamentoRepository;
 
@@ -32,12 +33,14 @@ public class OrcamentoService {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Orcamento salvar(OrcamentoDTO orcamentoDTO) {
+    public Orcamento salvar(OrcamentoDTO orcamentoDTO, Usuario usuario) {
     	Viagem viagem = viagemService.buscarPorId(orcamentoDTO.getViagem());
     	
     	if (viagem == null) {
 			throw new EntityNotFoundException("Não foi possível encontrar uma viagem com este id.");
 		}
+    	
+    	viagemService.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
     	Orcamento orcamento = new Orcamento();
         orcamento.setValorEstimado(orcamentoDTO.getValorEstimado());

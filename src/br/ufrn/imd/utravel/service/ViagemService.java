@@ -1,23 +1,31 @@
 package br.ufrn.imd.utravel.service;
 
+import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
+import br.ufrn.imd.utravel.exception.InvalidOperationException;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.ViagemRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 @Stateless
 public class ViagemService {
     @Inject
     private ViagemRepository viagemRepository;
+    
+    @Inject 
+    private UsuarioService usuarioService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -29,6 +37,7 @@ public class ViagemService {
         return viagemRepository.buscarPorId(id);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Viagem salvar(ViagemDTO viagemDTO, Usuario usuario) throws Exception {
         Viagem viagem = new Viagem();
 
@@ -54,4 +63,48 @@ public class ViagemService {
 
         return "Removido com sucesso";
     }
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public Viagem adicionarParticipantes(long id, GrupoUsuariosDTO grupoUsuariosDTO, 
+    									 Usuario usuario) {
+    	Viagem viagem = this.buscarPorId(id);
+    	
+    	if (viagem == null) {
+			throw new EntityNotFoundException("Não foi possível encontrar uma viagem com este id.");
+		}
+    	
+    	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
+    	
+    	if (grupoUsuariosDTO.getEmailUsuarios().isEmpty()) {
+			throw new InvalidOperationException("Não há nenhum usuário para ser adicionado.");
+		}
+    	
+    	Set<Usuario> novosUsuariosAutores = new HashSet<Usuario>();
+    	
+    	for(String emailUsuario : grupoUsuariosDTO.getEmailUsuarios()) {
+    		Usuario usuarioParaAdicionar = usuarioService.buscarUsuarioPorEmail(emailUsuario);
+    		
+    		if (usuarioParaAdicionar == null) {
+				StringBuilder stringBuilder = new StringBuilder();
+				
+				stringBuilder.append("Não foi possível localizar o usuário de email ")
+							 .append(emailUsuario)
+							 .append(".");
+				
+				throw new EntityNotFoundException(stringBuilder.toString());
+			}
+    		
+    		novosUsuariosAutores.add(usuarioParaAdicionar);
+    	}
+    	
+    	viagem.getUsuarios().addAll(novosUsuariosAutores);
+    	
+    	return viagemRepository.salvar(viagem);
+    }
+    
+    public void verificarSeUsuarioLogadoGerenciaViagem(Viagem viagem, Usuario usuario) {
+		if (!viagem.getUsuarios().contains(usuario)) {
+			throw new InvalidOperationException("Essa viagem não te pertence");
+		}
+	}
 }
