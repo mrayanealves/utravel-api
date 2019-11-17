@@ -31,7 +31,7 @@ public class UsuarioService extends AbstractService<Usuario> {
         return JWTUtil.create(usuarioCadastrado.getEmail());
     }
 
-    public Usuario encontrarUsuarioLogado(String email) {
+    public Usuario buscarUsuarioPorEmail(String email) {
         return repository.buscarUsuarioPorEmail(email);
     }
 }

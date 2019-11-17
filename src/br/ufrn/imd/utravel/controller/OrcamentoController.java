@@ -2,8 +2,10 @@ package br.ufrn.imd.utravel.controller;
 
 import br.ufrn.imd.utravel.dto.OrcamentoDTO;
 import br.ufrn.imd.utravel.model.Orcamento;
+import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.security.Secured;
 import br.ufrn.imd.utravel.service.OrcamentoService;
+import br.ufrn.imd.utravel.service.UsuarioService;
 import io.swagger.annotations.Api;
 
 import javax.ejb.EJB;
@@ -16,7 +18,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 @Api("Orcamento")
 @Stateless
@@ -24,6 +28,9 @@ import javax.ws.rs.core.Response;
 public class OrcamentoController {
     @EJB
     private OrcamentoService orcamentoService;
+    
+    @EJB
+    private UsuarioService usuarioService;
     
     @GET
     @Produces("application/json; charset=UTF-8")
@@ -46,8 +53,10 @@ public class OrcamentoController {
     @Produces("application/json; charset=UTF-8")
     @Path("/")
     @Secured
-    public Response salvar(@Valid OrcamentoDTO orcamentoDTO) {
-        return Response.ok(orcamentoService.salvar(orcamentoDTO)).build();
+    public Response salvar(@Valid OrcamentoDTO orcamentoDTO, @Context SecurityContext securityContext) {
+    	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
+    	
+    	return Response.ok(orcamentoService.salvar(orcamentoDTO, usuario)).build();
     }
 
     @DELETE

@@ -43,7 +43,7 @@ public class EmpresaController extends AbstractController<Empresa> {
     @Secured
     public Response avaliar(@PathParam("id") long id, @Valid AvaliacaoDTO avaliacaoDTO, 
     						@Context SecurityContext securityContext) {
-    	Usuario usuario = usuarioService.encontrarUsuarioLogado(securityContext.getUserPrincipal().getName());
+    	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
     	return Response.ok(service.avaliar(id, avaliacaoDTO, usuario)).build();
     }
