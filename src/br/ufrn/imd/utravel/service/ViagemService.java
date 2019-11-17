@@ -5,7 +5,6 @@ import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.ViagemRepository;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,17 +13,11 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Stateless
 public class ViagemService {
     @Inject
     private ViagemRepository viagemRepository;
-
-    @Inject
-    private UsuarioService usuarioService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -36,7 +29,7 @@ public class ViagemService {
         return viagemRepository.buscarPorId(id);
     }
 
-    public Viagem salvar(ViagemDTO viagemDTO, String email) throws Exception {
+    public Viagem salvar(ViagemDTO viagemDTO, Usuario usuario) throws Exception {
         Viagem viagem = new Viagem();
 
         Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(viagemDTO.getDataInicio());
@@ -45,8 +38,6 @@ public class ViagemService {
         if ((viagemDTO.getDataFim() != null) && (!viagemDTO.getDataFim().equals(""))) {
             dataFim = new SimpleDateFormat("dd/MM/yyyy").parse(viagemDTO.getDataFim());
         }
-
-        Usuario usuario = usuarioService.usuarioLogado(email);
 
         viagem.setTitulo(viagemDTO.getTitulo());
         viagem.setObjetivo(viagemDTO.getObjetivo());

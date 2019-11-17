@@ -4,6 +4,7 @@ import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.security.Secured;
+import br.ufrn.imd.utravel.service.UsuarioService;
 import br.ufrn.imd.utravel.service.ViagemService;
 import io.swagger.annotations.Api;
 
@@ -11,19 +12,20 @@ import java.text.ParseException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.text.ParseException;
 
 @Api("Viagem")
 @Stateless
 @Path("/viagem")
 public class ViagemController {
     @EJB
-    ViagemService viagemService;
+    private ViagemService viagemService;
+    
+    @EJB
+    private UsuarioService usuarioService;
 
     @GET
     @Produces("application/json; charset=UTF-8")
@@ -48,8 +50,9 @@ public class ViagemController {
     @Secured
     public Response salvar(ViagemDTO viagemDTO, @Context SecurityContext securityContext) {
         try {
-            String email = securityContext.getUserPrincipal().getName();
-            return Response.ok(viagemService.salvar(viagemDTO, email)).build();
+            Usuario usuario = usuarioService.encontrarUsuarioLogado(securityContext.getUserPrincipal().getName());
+            
+            return Response.ok(viagemService.salvar(viagemDTO, usuario)).build();
         } catch (ParseException e) {
             e.printStackTrace();
 

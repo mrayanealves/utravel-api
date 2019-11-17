@@ -8,7 +8,9 @@ import java.util.List;
 
 @Stateless
 public class OrcamentoRepository extends AbstractRepository<Orcamento> {
-    @Override
+    
+	@Override
+	@SuppressWarnings("unchecked")
     public List<Orcamento> buscarTodos() {
         return (List<Orcamento>) em.createQuery("select e from Orcamento e").getResultList();
     }

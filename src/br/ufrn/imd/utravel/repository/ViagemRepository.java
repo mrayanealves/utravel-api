@@ -3,14 +3,14 @@ package br.ufrn.imd.utravel.repository;
 import br.ufrn.imd.utravel.model.Viagem;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
 public class ViagemRepository extends AbstractRepository<Viagem> {
-    @Override
+    
+	@Override
+	@SuppressWarnings("unchecked")
     public List<Viagem> buscarTodos() {
         return (List<Viagem>) em.createQuery("select v from Viagem v").getResultList();
     }
