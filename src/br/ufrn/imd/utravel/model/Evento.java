@@ -31,8 +31,12 @@ public class Evento extends AbstractModel {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data")
-    private Date data;
+    @Column(name = "data_inicio")
+    private Date dataInicio;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "data_fim")
+    private Date dataFinal;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -62,14 +66,15 @@ public class Evento extends AbstractModel {
     public Evento() {
     }
 
-    public Evento(long id, float valorEstimado, float valorTotalGasto, @NotNull Date data, Viagem viagem,
+    public Evento(long id, float valorEstimado, float valorTotalGasto, @NotNull Date dataInicio, Date dataFim, Viagem viagem,
                   Restaurante restaurante, Hospedagem hospedagem, Passeio passeio, VeiculoAlugado veiculoAlugado,
                   Passagem passagem) {
         super();
         this.id = id;
         this.valorEstimado = valorEstimado;
         this.valorTotalGasto = valorTotalGasto;
-        this.data = data;
+        this.dataInicio = dataInicio;
+        this.dataFinal = dataFim;
         this.viagem = viagem;
         this.restaurante = restaurante;
         this.hospedagem = hospedagem;
@@ -104,15 +109,23 @@ public class Evento extends AbstractModel {
         this.valorTotalGasto = valorTotalGasto;
     }
 
-    public Date getData() {
-        return data;
-    }
+    public Date getDataInicio() {
+		return dataInicio;
+	}
 
-    public void setData(Date data) {
-        this.data = data;
-    }
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
 
-    public Viagem getViagem() {
+	public Date getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
+	}
+
+	public Viagem getViagem() {
         return viagem;
     }
 

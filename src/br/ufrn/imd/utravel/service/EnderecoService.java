@@ -3,6 +3,7 @@ package br.ufrn.imd.utravel.service;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import br.ufrn.imd.utravel.dto.EnderecoDTO;
 import br.ufrn.imd.utravel.model.Endereco;
 import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.EnderecoRepository;
@@ -15,5 +16,9 @@ public class EnderecoService extends AbstractService<Endereco> {
     @Override
     protected AbstractRepository<Endereco> repository() {
         return this.repository;
+    }
+    
+    public Endereco buscarEndereco(EnderecoDTO enderecoDTO) {
+    	return repository.buscarEndereco(enderecoDTO);
     }
 }

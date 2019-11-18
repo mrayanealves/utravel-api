@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
+import br.ufrn.imd.utravel.dto.EnderecoDTO;
 import br.ufrn.imd.utravel.model.Localizacao;
 
 @Stateless
@@ -41,5 +43,19 @@ public class LocalizacaoRepository extends AbstractRepository<Localizacao> {
     @Override
     public void remover(Localizacao entity) {
         em.remove(entity);
+    }
+    
+    public Localizacao buscarLocalizacao(EnderecoDTO enderecoDTO) {
+    	try {
+			Query query = em.createQuery("select l from Localizacao l where l.pais = :pais "
+					+ "and l.estado = :estado and l.cidade = :cidade");
+			query.setParameter("pais", enderecoDTO.getPais());
+			query.setParameter("estado", enderecoDTO.getEstado());
+			query.setParameter("cidade", enderecoDTO.getCidade());
+			
+			return (Localizacao) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
     }
 }
