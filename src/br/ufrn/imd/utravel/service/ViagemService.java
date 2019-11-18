@@ -2,9 +2,12 @@ package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.HospedagemDTO;
+import br.ufrn.imd.utravel.dto.RestauranteDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.exception.InvalidOperationException;
+import br.ufrn.imd.utravel.model.Evento;
 import br.ufrn.imd.utravel.model.Hospedagem;
+import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.ViagemRepository;
@@ -30,7 +33,11 @@ public class ViagemService {
     @Inject 
     private UsuarioService usuarioService;
     
-    @Inject HospedagemService hospedagemService;
+    @Inject 
+    private HospedagemService hospedagemService;
+    
+    @Inject
+    private RestauranteService restauranteService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -74,10 +81,6 @@ public class ViagemService {
     									 Usuario usuario) {
     	Viagem viagem = this.buscarPorId(id);
     	
-    	if (viagem == null) {
-			throw new EntityNotFoundException("Não foi possível encontrar uma viagem com este id.");
-		}
-    	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
     	if (grupoUsuariosDTO.getEmailUsuarios().isEmpty()) {
@@ -110,13 +113,28 @@ public class ViagemService {
     public Hospedagem adicionarHospedagem(long id, HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
-    	if (viagem == null) {
-			throw new EntityNotFoundException("Não foi possível encontrar uma viagem com este id.");
-		}
-    	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
     	return hospedagemService.salvar(hospedagemDTO, usuario, viagem);
+	}
+    
+    public Restaurante adicionarRestaurantes(long id, RestauranteDTO restauranteDTO, Usuario usuario) throws ParseException {
+    	Viagem viagem = this.buscarPorId(id);
+    	
+    	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
+    	
+    	Restaurante restaurante = restauranteService.buscarPorId(restauranteDTO.getRestaurante());
+    	
+    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(restauranteDTO.getDataIdaPrevista());
+    	
+    	Evento evento = new Evento();
+    	evento.setDataInicio(dataInicio);
+    	evento.setValorEstimado(restauranteDTO.getValorGastoPrevisto());
+    	evento.setRestaurante(restaurante);
+    	
+    	restaurante.getEventos().add(evento);
+    	
+    	return restauranteService.salvar(restaurante);
 	}
     
     public void verificarSeUsuarioLogadoGerenciaViagem(Viagem viagem, Usuario usuario) {
