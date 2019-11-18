@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 
 import br.ufrn.imd.utravel.dto.HospedagemDTO;
 import br.ufrn.imd.utravel.model.Empresa;
@@ -25,9 +24,6 @@ import br.ufrn.imd.utravel.repository.HospedagemRepository;
 public class HospedagemService {
     @Inject
     private HospedagemRepository repository;
-    
-    @Inject
-    private ViagemService viagemService;
     
     @Inject
     private EnderecoService enderecoService;
@@ -48,15 +44,7 @@ public class HospedagemService {
         return repository.buscarPorId(id);
     }
 
-    public Hospedagem salvar(HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
-    	Viagem viagem = viagemService.buscarPorId(hospedagemDTO.getViagem());
-    	
-    	if (viagem == null) {
-			throw new EntityNotFoundException("Não foi possível encontrar uma viagem com este id.");
-		}
-    	
-    	viagemService.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
-    	
+    public Hospedagem salvar(HospedagemDTO hospedagemDTO, Usuario usuario, Viagem viagem) throws ParseException {   	
     	Endereco endereco = enderecoService.buscarEndereco(hospedagemDTO.getEnderecoDTO());
     	
     	if (endereco == null) {

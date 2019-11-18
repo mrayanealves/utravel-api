@@ -1,12 +1,15 @@
 package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
+import br.ufrn.imd.utravel.dto.HospedagemDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.exception.InvalidOperationException;
+import br.ufrn.imd.utravel.model.Hospedagem;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.ViagemRepository;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
@@ -26,6 +29,8 @@ public class ViagemService {
     
     @Inject 
     private UsuarioService usuarioService;
+    
+    @Inject HospedagemService hospedagemService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -101,6 +106,18 @@ public class ViagemService {
     	
     	return viagemRepository.salvar(viagem);
     }
+    
+    public Hospedagem adicionarHospedagem(long id, HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
+    	Viagem viagem = this.buscarPorId(id);
+    	
+    	if (viagem == null) {
+			throw new EntityNotFoundException("Não foi possível encontrar uma viagem com este id.");
+		}
+    	
+    	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
+    	
+    	return hospedagemService.salvar(hospedagemDTO, usuario, viagem);
+	}
     
     public void verificarSeUsuarioLogadoGerenciaViagem(Viagem viagem, Usuario usuario) {
 		if (!viagem.getUsuarios().contains(usuario)) {

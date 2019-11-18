@@ -1,24 +1,15 @@
 package br.ufrn.imd.utravel.controller;
 
-import java.text.ParseException;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.validation.Valid;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 
-import br.ufrn.imd.utravel.dto.HospedagemDTO;
 import br.ufrn.imd.utravel.model.Hospedagem;
-import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.security.Secured;
 import br.ufrn.imd.utravel.service.HospedagemService;
 import br.ufrn.imd.utravel.service.UsuarioService;
@@ -48,23 +39,6 @@ public class HospedagemController {
     @Secured
     public Response buscarPorId(@PathParam("id") long id) {
         return Response.ok(service.buscarPorId(id)).build();
-    }
-
-    @POST
-    @Consumes("application/json; charset=UTF-8")
-    @Produces("application/json; charset=UTF-8")
-    @Path("/")
-    @Secured
-    public Response salvar(@Valid HospedagemDTO hospedagemDTO, @Context SecurityContext securityContext) {
-        Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
-    	
-        try {
-			return Response.ok(service.salvar(hospedagemDTO, usuario)).build();
-		} catch (ParseException e) {
-			e.printStackTrace();
-			
-			return Response.status(Response.Status.BAD_REQUEST).encoding(e.getMessage()).build();
-		}
     }
 
     @DELETE
