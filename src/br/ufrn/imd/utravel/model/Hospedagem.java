@@ -1,19 +1,25 @@
 package br.ufrn.imd.utravel.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.ufrn.imd.utravel.enums.EnumTipoHospedagem;
 
@@ -36,15 +42,20 @@ public class Hospedagem extends AbstractModel {
     @Enumerated(EnumType.ORDINAL)
     private EnumTipoHospedagem tipoHospedagem;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @ManyToOne
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "hospedagem", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Evento> eventos;
 
     public Hospedagem() {
+    	eventos = new ArrayList<Evento>();
     }
 
     public Hospedagem(long id, @NotBlank String codigo, int quantidadeQuartos, EnumTipoHospedagem tipoHospedagem,
@@ -107,7 +118,15 @@ public class Hospedagem extends AbstractModel {
         this.empresa = empresa;
     }
 
-    @Override
+    public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

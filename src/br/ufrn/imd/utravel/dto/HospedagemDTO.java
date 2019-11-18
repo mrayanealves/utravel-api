@@ -5,9 +5,12 @@ import br.ufrn.imd.utravel.enums.EnumTipoHospedagem;
 public class HospedagemDTO {
 	private String codigo;
 	private int quantidadeQuartos;
+	private String dataHospedagem;
+	private String dataSaida;
+	private float valorGasto;
 	private EnumTipoHospedagem tipoHospedagem;
 	private EnderecoDTO enderecoDTO;
-	private EmpresaDTO empresaDTO;
+	private long empresa;
 	private long viagem;
 	
 	public String getCodigo() {
@@ -26,6 +29,30 @@ public class HospedagemDTO {
 		this.quantidadeQuartos = quantidadeQuartos;
 	}
 	
+	public String getDataHospedagem() {
+		return dataHospedagem;
+	}
+
+	public void setDataHospedagem(String dataHospedagem) {
+		this.dataHospedagem = dataHospedagem;
+	}
+
+	public String getDataSaida() {
+		return dataSaida;
+	}
+
+	public void setDataSaida(String dataSaida) {
+		this.dataSaida = dataSaida;
+	}
+
+	public float getValorGasto() {
+		return valorGasto;
+	}
+
+	public void setValorGasto(float valorGasto) {
+		this.valorGasto = valorGasto;
+	}
+
 	public EnumTipoHospedagem getTipoHospedagem() {
 		return tipoHospedagem;
 	}
@@ -41,13 +68,13 @@ public class HospedagemDTO {
 	public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
 		this.enderecoDTO = enderecoDTO;
 	}
-	
-	public EmpresaDTO getEmpresaDTO() {
-		return empresaDTO;
+
+	public long getEmpresa() {
+		return empresa;
 	}
-	
-	public void setEmpresaDTO(EmpresaDTO empresaDTO) {
-		this.empresaDTO = empresaDTO;
+
+	public void setEmpresa(long empresa) {
+		this.empresa = empresa;
 	}
 
 	public long getViagem() {

@@ -35,7 +35,6 @@ public class Empresa extends AbstractModel {
     @NotBlank
     private String nome;
 
-    @NotBlank
     private String documento;
 
     @ManyToOne

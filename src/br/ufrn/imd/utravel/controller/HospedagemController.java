@@ -1,5 +1,7 @@
 package br.ufrn.imd.utravel.controller;
 
+import java.text.ParseException;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.validation.Valid;
@@ -55,8 +57,14 @@ public class HospedagemController {
     @Secured
     public Response salvar(@Valid HospedagemDTO hospedagemDTO, @Context SecurityContext securityContext) {
         Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
-    	// return Response.ok(service.salvar(entity)).build();
-    	return null;
+    	
+        try {
+			return Response.ok(service.salvar(hospedagemDTO, usuario)).build();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			
+			return Response.status(Response.Status.BAD_REQUEST).encoding(e.getMessage()).build();
+		}
     }
 
     @DELETE

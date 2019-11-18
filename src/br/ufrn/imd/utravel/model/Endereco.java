@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 		uniqueConstraints = {
 		        @UniqueConstraint(
 		                name = "endereco_localizacao_uniques",
-		                columnNames = {"endereco", "localizacao"}
+		                columnNames = {"endereco", "id_localizacao"}
 		        )
 		}
 )

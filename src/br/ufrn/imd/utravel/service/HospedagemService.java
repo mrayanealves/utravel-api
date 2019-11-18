@@ -1,5 +1,8 @@
 package br.ufrn.imd.utravel.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,7 +12,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
 import br.ufrn.imd.utravel.dto.HospedagemDTO;
+import br.ufrn.imd.utravel.model.Empresa;
 import br.ufrn.imd.utravel.model.Endereco;
+import br.ufrn.imd.utravel.model.Evento;
 import br.ufrn.imd.utravel.model.Hospedagem;
 import br.ufrn.imd.utravel.model.Localizacao;
 import br.ufrn.imd.utravel.model.Usuario;
@@ -30,6 +35,9 @@ public class HospedagemService {
     @Inject
     private LocalizacaoService localizacaoService;
     
+    @Inject
+    private EmpresaService empresaService;
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Hospedagem> buscarTodos() {
         return repository.buscarTodos();
@@ -41,7 +49,7 @@ public class HospedagemService {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public Hospedagem salvar(HospedagemDTO hospedagemDTO, Usuario usuario) {
+    public Hospedagem salvar(HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = viagemService.buscarPorId(hospedagemDTO.getViagem());
     	
     	if (viagem == null) {
@@ -71,17 +79,31 @@ public class HospedagemService {
 			endereco.setLocalizacao(localizacao);
 		}
     	
-    	// TODO: Fazer a mesma coisa de endereço para a empresa
+    	Empresa empresa = null;
+    	if (hospedagemDTO.getEmpresa() != 0) {
+			empresa = empresaService.buscarPorId(hospedagemDTO.getEmpresa());
+		}
     	
+    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(hospedagemDTO.getDataHospedagem());
+        Date dataFim = new SimpleDateFormat("dd/MM/yyyy").parse(hospedagemDTO.getDataSaida());
+	
     	Hospedagem hospedagem = new Hospedagem();
     	
     	hospedagem.setEndereco(endereco);
     	hospedagem.setCodigo(hospedagemDTO.getCodigo());
     	hospedagem.setQuantidadeQuartos(hospedagemDTO.getQuantidadeQuartos());
     	hospedagem.setTipoHospedagem(hospedagem.getTipoHospedagem());
+    	hospedagem.setEmpresa(empresa);
     	
-    	return null;
-        // return repository.salvar(entity);
+    	Evento evento = new Evento();
+    	evento.setDataFinal(dataFim);
+    	evento.setDataInicio(dataInicio);
+    	evento.setValorEstimado(hospedagemDTO.getValorGasto());
+    	evento.setHospedagem(hospedagem);
+    	
+    	hospedagem.getEventos().add(evento);
+    	
+    	return hospedagem;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
