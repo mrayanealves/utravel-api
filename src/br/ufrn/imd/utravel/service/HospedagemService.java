@@ -48,7 +48,6 @@ public class HospedagemService {
         return repository.buscarPorId(id);
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public Hospedagem salvar(HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = viagemService.buscarPorId(hospedagemDTO.getViagem());
     	
@@ -100,10 +99,11 @@ public class HospedagemService {
     	evento.setDataInicio(dataInicio);
     	evento.setValorEstimado(hospedagemDTO.getValorGasto());
     	evento.setHospedagem(hospedagem);
+    	evento.setViagem(viagem);
     	
     	hospedagem.getEventos().add(evento);
     	
-    	return hospedagem;
+    	return repository.salvar(hospedagem);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
