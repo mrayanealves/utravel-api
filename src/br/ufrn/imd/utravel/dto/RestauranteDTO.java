@@ -4,7 +4,6 @@ public class RestauranteDTO {
 	private String dataIdaPrevista;
 	private float valorGastoPrevisto;
 	private long restaurante;
-	private long viagem;
 	
 	public String getDataIdaPrevista() {
 		return dataIdaPrevista;
@@ -28,13 +27,5 @@ public class RestauranteDTO {
 
 	public void setRestaurante(long restaurante) {
 		this.restaurante = restaurante;
-	}
-
-	public long getViagem() {
-		return viagem;
-	}
-	
-	public void setViagem(long viagem) {
-		this.viagem = viagem;
 	}
 }

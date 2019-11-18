@@ -131,6 +131,7 @@ public class ViagemService {
     	evento.setDataInicio(dataInicio);
     	evento.setValorEstimado(restauranteDTO.getValorGastoPrevisto());
     	evento.setRestaurante(restaurante);
+    	evento.setViagem(viagem);
     	
     	restaurante.getEventos().add(evento);
     	

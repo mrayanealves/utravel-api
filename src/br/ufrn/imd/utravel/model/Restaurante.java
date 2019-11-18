@@ -34,7 +34,7 @@ public class Restaurante extends AbstractModel {
     @Column(name = "numero_estrelas")
     private int numeroEstrelas;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
