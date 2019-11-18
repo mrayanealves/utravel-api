@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
 import br.ufrn.imd.utravel.dto.HospedagemDTO;
+import br.ufrn.imd.utravel.model.Endereco;
 import br.ufrn.imd.utravel.model.Hospedagem;
+import br.ufrn.imd.utravel.model.Localizacao;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.HospedagemRepository;
@@ -21,6 +23,12 @@ public class HospedagemService {
     
     @Inject
     private ViagemService viagemService;
+    
+    @Inject
+    private EnderecoService enderecoService;
+    
+    @Inject
+    private LocalizacaoService localizacaoService;
     
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Hospedagem> buscarTodos() {
@@ -42,9 +50,35 @@ public class HospedagemService {
     	
     	viagemService.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
+    	Endereco endereco = enderecoService.buscarEndereco(hospedagemDTO.getEnderecoDTO());
     	
+    	if (endereco == null) {
+			Localizacao localizacao = localizacaoService.buscarLocalizacao(hospedagemDTO.getEnderecoDTO());
+			
+			if (localizacao == null) {
+				localizacao = new Localizacao();
+				
+				localizacao.setCidade(hospedagemDTO.getEnderecoDTO().getCidade());
+				localizacao.setEstado(hospedagemDTO.getEnderecoDTO().getEstado());
+				localizacao.setPais(hospedagemDTO.getEnderecoDTO().getPais());
+				
+				localizacao = localizacaoService.salvar(localizacao);
+			}
+			
+			endereco = new Endereco();
+			
+			endereco.setEndereco(hospedagemDTO.getEnderecoDTO().getEndereco());
+			endereco.setLocalizacao(localizacao);
+		}
+    	
+    	// TODO: Fazer a mesma coisa de endereço para a empresa
     	
     	Hospedagem hospedagem = new Hospedagem();
+    	
+    	hospedagem.setEndereco(endereco);
+    	hospedagem.setCodigo(hospedagemDTO.getCodigo());
+    	hospedagem.setQuantidadeQuartos(hospedagemDTO.getQuantidadeQuartos());
+    	hospedagem.setTipoHospedagem(hospedagem.getTipoHospedagem());
     	
     	return null;
         // return repository.salvar(entity);

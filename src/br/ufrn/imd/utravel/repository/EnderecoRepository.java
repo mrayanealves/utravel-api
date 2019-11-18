@@ -56,7 +56,7 @@ public class EnderecoRepository extends AbstractRepository<Endereco> {
 			query.setParameter("cidade", enderecoDTO.getCidade());
 			
 			return (Endereco) query.getSingleResult();
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
