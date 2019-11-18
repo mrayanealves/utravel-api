@@ -1,5 +1,6 @@
 package br.ufrn.imd.utravel.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class Endereco extends AbstractModel {
     private String endereco;
 
     @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_localizacao")
     private Localizacao localizacao;
 
