@@ -1,11 +1,20 @@
 package br.ufrn.imd.utravel.dto;
 
 public class EnderecoDTO {
+	private int idEndereco;
 	private String endereco;
 	private String pais;
 	private String estado;
 	private String cidade;
 	
+	public int getIdEndereco() {
+		return idEndereco;
+	}
+
+	public void setIdEndereco(int idEndereco) {
+		this.idEndereco = idEndereco;
+	}
+
 	public String getEndereco() {
 		return endereco;
 	}

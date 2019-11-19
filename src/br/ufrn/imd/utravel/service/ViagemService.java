@@ -1,12 +1,12 @@
 package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
-import br.ufrn.imd.utravel.dto.HospedagemDTO;
+import br.ufrn.imd.utravel.dto.ReservaDTO;
 import br.ufrn.imd.utravel.dto.RestauranteDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.exception.InvalidOperationException;
 import br.ufrn.imd.utravel.model.Evento;
-import br.ufrn.imd.utravel.model.Hospedagem;
+import br.ufrn.imd.utravel.model.Reserva;
 import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
@@ -33,11 +33,11 @@ public class ViagemService {
     @Inject 
     private UsuarioService usuarioService;
     
-    @Inject 
-    private HospedagemService hospedagemService;
-    
     @Inject
     private RestauranteService restauranteService;
+    
+    @Inject
+    private ReservaService reservaService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -110,12 +110,12 @@ public class ViagemService {
     	return viagemRepository.salvar(viagem);
     }
     
-    public Hospedagem adicionarHospedagem(long id, HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
+    public Reserva adicionarReservaHospedagem(long id, ReservaDTO reservaDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
-    	return hospedagemService.salvar(hospedagemDTO, usuario, viagem);
+    	return reservaService.salvar(reservaDTO, viagem);
 	}
     
     public Restaurante adicionarRestaurantes(long id, RestauranteDTO restauranteDTO, Usuario usuario) throws ParseException {

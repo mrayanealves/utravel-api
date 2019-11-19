@@ -1,7 +1,7 @@
 package br.ufrn.imd.utravel.controller;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
-import br.ufrn.imd.utravel.dto.HospedagemDTO;
+import br.ufrn.imd.utravel.dto.ReservaDTO;
 import br.ufrn.imd.utravel.dto.RestauranteDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.model.Usuario;
@@ -94,14 +94,14 @@ public class ViagemController {
     @POST
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    @Path("/{id}/adicionar/hospedagem")
+    @Path("/{id}/adicionar/reserva/hospedagem")
     @Secured
-    public Response adicionarHospedagem(@PathParam("id") long id, HospedagemDTO hospedagemDTO, 
+    public Response adicionarReservaHospedagem(@PathParam("id") long id, ReservaDTO hospedagemDTO, 
     										@Context SecurityContext securityContext) {
     	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
     	try {
-			return Response.ok(viagemService.adicionarHospedagem(id, hospedagemDTO, usuario)).build();
+			return Response.ok(viagemService.adicionarReservaHospedagem(id, hospedagemDTO, usuario)).build();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			

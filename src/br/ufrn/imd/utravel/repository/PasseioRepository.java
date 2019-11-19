@@ -27,15 +27,13 @@ public class PasseioRepository extends AbstractRepository<Passeio> {
 
     @Override
     public Passeio salvar(Passeio entity) {
-        if (entity.getId() > 0) {
-            em.persist(entity);
-
-            return entity;
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.merge(entity);
-
-            return entity;
+            entity = em.merge(entity);
         }
+        return entity;
     }
 
     @Override

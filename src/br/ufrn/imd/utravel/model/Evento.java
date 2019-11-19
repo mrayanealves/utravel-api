@@ -48,8 +48,8 @@ public class Evento extends AbstractModel {
     private Restaurante restaurante;
 
     @ManyToOne
-    @JoinColumn(name = "id_hospedagem")
-    private Hospedagem hospedagem;
+    @JoinColumn(name = "id_reserva")
+    private Reserva reserva;
 
     @ManyToOne
     @JoinColumn(name = "id_passeio")
@@ -67,7 +67,7 @@ public class Evento extends AbstractModel {
     }
 
     public Evento(long id, float valorEstimado, float valorTotalGasto, @NotNull Date dataInicio, Date dataFim, Viagem viagem,
-                  Restaurante restaurante, Hospedagem hospedagem, Passeio passeio, VeiculoAlugado veiculoAlugado,
+                  Restaurante restaurante, Reserva reserva, Passeio passeio, VeiculoAlugado veiculoAlugado,
                   Passagem passagem) {
         super();
         this.id = id;
@@ -77,7 +77,7 @@ public class Evento extends AbstractModel {
         this.dataFinal = dataFim;
         this.viagem = viagem;
         this.restaurante = restaurante;
-        this.hospedagem = hospedagem;
+        this.reserva = reserva;
         this.passeio = passeio;
         this.veiculoAlugado = veiculoAlugado;
         this.passagem = passagem;
@@ -141,15 +141,15 @@ public class Evento extends AbstractModel {
         this.restaurante = restaurante;
     }
 
-    public Hospedagem getHospedagem() {
-        return hospedagem;
-    }
+    public Reserva getReserva() {
+		return reserva;
+	}
 
-    public void setHospedagem(Hospedagem hospedagem) {
-        this.hospedagem = hospedagem;
-    }
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
 
-    public Passeio getPasseio() {
+	public Passeio getPasseio() {
         return passeio;
     }
 

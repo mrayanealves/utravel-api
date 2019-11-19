@@ -3,7 +3,6 @@ package br.ufrn.imd.utravel.model;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class Passeio extends AbstractModel {
 
     private String tipo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "empresa_passeio",
             joinColumns = @JoinColumn(name = "id_passeio", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_empresa", referencedColumnName = "id")

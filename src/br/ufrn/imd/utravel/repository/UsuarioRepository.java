@@ -28,15 +28,13 @@ public class UsuarioRepository extends AbstractRepository<Usuario> {
 
     @Override
     public Usuario salvar(Usuario entity) {
-        if (entity.getId() > 0) {
-            em.persist(entity);
-
-            return entity;
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.merge(entity);
-
-            return entity;
+            entity = em.merge(entity);
         }
+        return entity;
     }
 
     @Override

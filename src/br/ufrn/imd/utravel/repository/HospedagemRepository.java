@@ -27,15 +27,13 @@ public class HospedagemRepository extends AbstractRepository<Hospedagem> {
 
     @Override
     public Hospedagem salvar(Hospedagem entity) {
-        if (entity.getId() > 0) {
-            em.persist(entity);
-
-            return entity;
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.merge(entity);
-
-            return entity;
+            entity = em.merge(entity);
         }
+        return entity;
     }
 
     @Override
