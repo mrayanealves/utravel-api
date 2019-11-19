@@ -2,10 +2,12 @@ package br.ufrn.imd.utravel.repository;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
 import br.ufrn.imd.utravel.model.Transporte;
 
+@Stateless
 public class TransporteRepository extends AbstractRepository<Transporte>{
 	@Override
     @SuppressWarnings("unchecked")

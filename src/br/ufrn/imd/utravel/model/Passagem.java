@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,11 +14,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "passagem")
@@ -57,9 +61,14 @@ public class Passagem extends AbstractModel {
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_empresa")
     private Empresa empresa;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL)
+    private List<Evento> eventos;
 
     public Passagem() {
     	this.enderecosParadas = new ArrayList<Endereco>();
+    	this.eventos = new ArrayList<Evento>();
     }
 
     public Passagem(long id, @NotNull Date dataPartida, Date dataChegada, Endereco enderecoSaidaOrigem,
@@ -136,7 +145,15 @@ public class Passagem extends AbstractModel {
         this.empresa = empresa;
     }
 
-    @Override
+    public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;

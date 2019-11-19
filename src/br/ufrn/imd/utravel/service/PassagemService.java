@@ -103,7 +103,7 @@ public class PassagemService extends AbstractService<Passagem>{
 		passagem.setDataPartida(dataInicio);
 		passagem.setDataChegada(dataFim);
 		passagem.setEnderecoSaidaOrigem(enderecoSaidaOrigem);
-		passagem.setEnderecoSaidaOrigem(enderecoSaidaOrigem);
+		passagem.setEnderecoChegadaDestino(enderecoChegadaDestino);
 		passagem.getEnderecosParadas().addAll(enderecosParadas);
 		passagem.setEmpresa(empresa);
 		

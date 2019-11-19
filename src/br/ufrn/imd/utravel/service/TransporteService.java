@@ -1,7 +1,9 @@
 package br.ufrn.imd.utravel.service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +11,7 @@ import javax.inject.Inject;
 
 import br.ufrn.imd.utravel.dto.PassagemDTO;
 import br.ufrn.imd.utravel.dto.TransporteDTO;
+import br.ufrn.imd.utravel.model.Evento;
 import br.ufrn.imd.utravel.model.InformacoesTransporteProprio;
 import br.ufrn.imd.utravel.model.Passagem;
 import br.ufrn.imd.utravel.model.Transporte;
@@ -21,12 +24,6 @@ import br.ufrn.imd.utravel.repository.TransporteRepository;
 public class TransporteService extends AbstractService<Transporte>{
 	@Inject
 	private TransporteRepository repository;
-	
-//	@Inject
-//    private EnderecoService enderecoService;
-//    
-//    @Inject
-//    private EmpresaService empresaService;
     
     @Inject
     private PassagemService passagemService;
@@ -44,8 +41,8 @@ public class TransporteService extends AbstractService<Transporte>{
 	
 	public Transporte adicionarTrasporte(TransporteDTO transporteDTO, Viagem viagem) throws ParseException {
 		List<Passagem> passagens = new ArrayList<Passagem>();
-		VeiculoAlugado veiculoAlugado = new VeiculoAlugado();
-		InformacoesTransporteProprio informacoesTransporteProprio = new InformacoesTransporteProprio();
+		VeiculoAlugado veiculoAlugado = null;
+		InformacoesTransporteProprio informacoesTransporteProprio = null;
 		
 		if (!transporteDTO.isTransporteProprio() && transporteDTO.getVeiculoAlugadoDTO() == null) {
 			if (transporteDTO.getPassagensDTO() != null && !transporteDTO.getPassagensDTO().isEmpty()) {
@@ -53,6 +50,18 @@ public class TransporteService extends AbstractService<Transporte>{
 				
 				for (PassagemDTO passagemDTO : transporteDTO.getPassagensDTO()) {
 					passagem = passagemService.montarPassagem(passagemDTO);
+					
+					Evento evento = new Evento();
+					
+					evento.setTitulo("Passagem da viagem");
+					evento.setDataInicio(passagem.getDataPartida());
+					evento.setDataFinal(passagem.getDataChegada());
+					evento.setViagem(viagem);
+					evento.setPassagem(passagem);
+					
+					passagem.getEventos().add(evento);
+					
+					passagem = passagemService.salvar(passagem);
 					
 					passagens.add(passagem);
 				}
@@ -62,6 +71,23 @@ public class TransporteService extends AbstractService<Transporte>{
 		else if(!transporteDTO.isTransporteProprio() && transporteDTO.getVeiculoAlugadoDTO() != null) {
 			veiculoAlugado = veiculoAlugadoService.montarVeiculoAlugado(transporteDTO.getVeiculoAlugadoDTO());
 			
+			Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(transporteDTO.getVeiculoAlugadoDTO().getDataAluguel());
+	        Date dataFim = null;
+
+	        if ((transporteDTO.getVeiculoAlugadoDTO().getDataEntrega() != null) && (!transporteDTO.getVeiculoAlugadoDTO().getDataEntrega().equals(""))) {
+	            dataFim = new SimpleDateFormat("dd/MM/yyyy").parse(transporteDTO.getVeiculoAlugadoDTO().getDataEntrega());
+	        }
+			
+			Evento evento = new Evento();
+			
+			evento.setTitulo("Alguel de veículo");
+			evento.setDataInicio(dataInicio);
+			evento.setDataFinal(dataFim);
+			evento.setViagem(viagem);
+			evento.setVeiculoAlugado(veiculoAlugado);
+			
+			veiculoAlugado.getEventos().add(evento);
+						
 			veiculoAlugado = veiculoAlugadoService.salvar(veiculoAlugado);
 		}
 		else if(transporteDTO.isTransporteProprio()) {
