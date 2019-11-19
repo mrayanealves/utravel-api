@@ -2,10 +2,12 @@ package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ReservaDTO;
+import br.ufrn.imd.utravel.dto.TurismoDTO;
 import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.exception.InvalidOperationException;
 import br.ufrn.imd.utravel.model.Evento;
+import br.ufrn.imd.utravel.model.Passeio;
 import br.ufrn.imd.utravel.model.Reserva;
 import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.model.Usuario;
@@ -38,6 +40,9 @@ public class ViagemService {
     
     @Inject
     private ReservaService reservaService;
+    
+    @Inject
+    private PasseioService passeioService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -133,12 +138,11 @@ public class ViagemService {
 			restaurante = restauranteService.salvar(restaurante);
 		}
     	
-    	
-    	
     	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(alimentacaoDTO.getDataIdaPrevista());
     	
     	Evento evento = new Evento();
     	
+    	evento.setTitulo("Ida ao restaurante");
     	evento.setDataInicio(dataInicio);
     	evento.setValorEstimado(alimentacaoDTO.getValorGastoPrevisto());
     	evento.setRestaurante(restaurante);
@@ -147,6 +151,36 @@ public class ViagemService {
     	restaurante.getEventos().add(evento);
     	
     	return restauranteService.salvar(restaurante);
+	}
+    
+    public Passeio adicionarPasseios(long id, TurismoDTO turismoDTO, Usuario usuario) throws ParseException {
+    	Viagem viagem = this.buscarPorId(id);
+    	
+    	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
+    	
+    	Passeio passeio = new Passeio();
+    	
+    	if (turismoDTO.getPasseioDTO().getIdPasseio() != 0) {
+			passeio = passeioService.buscarPorId(turismoDTO.getPasseioDTO().getIdPasseio());
+		} else {
+			passeio = passeioService.montarPasseio(turismoDTO.getPasseioDTO());
+			
+			passeio = passeioService.salvar(passeio);
+		}
+    	
+    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(turismoDTO.getDataPasseio());
+    	
+    	Evento evento = new Evento();
+    	
+    	evento.setTitulo("Passeio na viagem");
+    	evento.setDataInicio(dataInicio);
+    	evento.setValorEstimado(turismoDTO.getValorGastoPrevisto());
+    	evento.setPasseio(passeio);
+    	evento.setViagem(viagem);
+    	
+    	passeio.getEventos().add(evento);
+    	
+    	return passeioService.salvar(passeio);
 	}
     
     public void verificarSeUsuarioLogadoGerenciaViagem(Viagem viagem, Usuario usuario) {

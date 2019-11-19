@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,6 +23,9 @@ public class Evento extends AbstractModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EVENTO")
     @SequenceGenerator(name = "SEQ_EVENTO", sequenceName = "seq_id_evento", allocationSize = 1)
     private long id;
+    
+    @NotBlank
+    private String titulo;
 
     @Column(name = "valor_estimado")
     private float valorEstimado;
@@ -66,11 +70,11 @@ public class Evento extends AbstractModel {
     public Evento() {
     }
 
-    public Evento(long id, float valorEstimado, float valorTotalGasto, @NotNull Date dataInicio, Date dataFim, Viagem viagem,
+    public Evento(long id, String titulo, float valorEstimado, float valorTotalGasto, @NotNull Date dataInicio, Date dataFim, Viagem viagem,
                   Restaurante restaurante, Reserva reserva, Passeio passeio, VeiculoAlugado veiculoAlugado,
                   Passagem passagem) {
-        super();
         this.id = id;
+        this.titulo = titulo;
         this.valorEstimado = valorEstimado;
         this.valorTotalGasto = valorTotalGasto;
         this.dataInicio = dataInicio;
@@ -93,7 +97,15 @@ public class Evento extends AbstractModel {
         return this.id;
     }
 
-    public float getValorEstimado() {
+    public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public float getValorEstimado() {
         return valorEstimado;
     }
 

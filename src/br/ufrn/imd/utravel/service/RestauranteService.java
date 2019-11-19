@@ -41,9 +41,13 @@ public class RestauranteService extends AbstractService<Restaurante> {
 		if (restauranteDTO.getEmpresaDTO().getIdEmpresa() != 0) {
 			empresa = empresaService.buscarPorId(restauranteDTO.getEmpresaDTO().getIdEmpresa());
 		} else {
-			empresa = empresaService.montarEmpresa(restauranteDTO.getEmpresaDTO());
+			endereco = enderecoService.buscarEndereco(restauranteDTO.getEnderecoDTO());
 			
-			empresa = empresaService.salvar(empresa);
+			if (endereco == null) {
+				endereco = enderecoService.montarEndereco(restauranteDTO.getEnderecoDTO());
+				
+				endereco = enderecoService.salvar(endereco);
+			}
 		}
 		
 		Restaurante restaurante = new Restaurante();

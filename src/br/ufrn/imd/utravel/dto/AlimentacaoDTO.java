@@ -5,7 +5,6 @@ public class AlimentacaoDTO {
 	private float valorGastoPrevisto;
 	private RestauranteDTO restauranteDTO;
 	
-	
 	public String getDataIdaPrevista() {
 		return dataIdaPrevista;
 	}

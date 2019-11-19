@@ -33,9 +33,13 @@ public class HospedagemService extends AbstractService<Hospedagem>{
 		if (hospedagemDTO.getEnderecoDTO().getIdEndereco() != 0) {
 			endereco = enderecoService.buscarPorId(hospedagemDTO.getEnderecoDTO().getIdEndereco());
 		} else {
-			endereco = enderecoService.montarEndereco(hospedagemDTO.getEnderecoDTO());
+			endereco = enderecoService.buscarEndereco(hospedagemDTO.getEnderecoDTO());
 			
-			endereco = enderecoService.salvar(endereco);
+			if (endereco == null) {
+				endereco = enderecoService.montarEndereco(hospedagemDTO.getEnderecoDTO());
+				
+				endereco = enderecoService.salvar(endereco);
+			}
 		}
 		
 		if (hospedagemDTO.getEmpresaDTO().getIdEmpresa() != 0) {

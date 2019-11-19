@@ -68,6 +68,7 @@ public class ReservaService {
 		Reserva reserva = new Reserva();
 		Evento evento = new Evento();
 		
+		evento.setTitulo("Reserva de hospedagem");
 		evento.setDataFinal(dataFim);
 		evento.setDataInicio(dataInicio);
 		evento.setValorEstimado(reservaDTO.getValorGastoPrevisto());

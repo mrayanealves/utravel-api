@@ -2,6 +2,7 @@ package br.ufrn.imd.utravel.controller;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ReservaDTO;
+import br.ufrn.imd.utravel.dto.TurismoDTO;
 import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.model.Usuario;
@@ -120,6 +121,24 @@ public class ViagemController {
     	
     	try {
 			return Response.ok(viagemService.adicionarRestaurantes(id, alimentacaoDTO, usuario)).build();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			
+            return Response.status(Response.Status.BAD_REQUEST).encoding("O formato padrão das datas é dd/MM/yyyy.").build();
+		}
+    }
+    
+    @POST
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    @Path("/{id}/adicionar/passeio")
+    @Secured
+    public Response adicionarPasseios(@PathParam("id") long id, TurismoDTO turismoDTO, 
+    										@Context SecurityContext securityContext) {
+    	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
+    	
+    	try {
+			return Response.ok(viagemService.adicionarPasseios(id, turismoDTO, usuario)).build();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			
