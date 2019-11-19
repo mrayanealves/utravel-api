@@ -133,7 +133,7 @@ public class ViagemController {
     @Produces("application/json; charset=UTF-8")
     @Path("/{id}/adicionar/passeio")
     @Secured
-    public Response adicionarPasseios(@PathParam("id") long id, TurismoDTO turismoDTO, 
+    public Response adicionarPasseio(@PathParam("id") long id, TurismoDTO turismoDTO, 
     										@Context SecurityContext securityContext) {
     	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
