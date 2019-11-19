@@ -1,5 +1,6 @@
 package br.ufrn.imd.utravel.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class Passagem extends AbstractModel {
     private Empresa empresa;
 
     public Passagem() {
+    	this.enderecosParadas = new ArrayList<Endereco>();
     }
 
     public Passagem(long id, @NotNull Date dataPartida, Date dataChegada, Endereco enderecoSaidaOrigem,
@@ -67,8 +69,13 @@ public class Passagem extends AbstractModel {
         this.dataChegada = dataChegada;
         this.enderecoSaidaOrigem = enderecoSaidaOrigem;
         this.enderecoChegadaDestino = enderecoChegadaDestino;
-        this.enderecosParadas = enderecosParadas;
         this.empresa = empresa;
+        
+        if (enderecosParadas == null) {
+			this.enderecosParadas = new ArrayList<Endereco>();
+		} else {
+			this.enderecosParadas = enderecosParadas;
+		}
     }
 
     @Override

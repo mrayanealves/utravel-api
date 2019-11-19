@@ -2,6 +2,7 @@ package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ReservaDTO;
+import br.ufrn.imd.utravel.dto.TransporteDTO;
 import br.ufrn.imd.utravel.dto.TurismoDTO;
 import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
@@ -10,6 +11,7 @@ import br.ufrn.imd.utravel.model.Evento;
 import br.ufrn.imd.utravel.model.Passeio;
 import br.ufrn.imd.utravel.model.Reserva;
 import br.ufrn.imd.utravel.model.Restaurante;
+import br.ufrn.imd.utravel.model.Transporte;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
 import br.ufrn.imd.utravel.repository.ViagemRepository;
@@ -43,6 +45,9 @@ public class ViagemService {
     
     @Inject
     private PasseioService passeioService;
+    
+    @Inject
+    private TransporteService transporteService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -181,6 +186,14 @@ public class ViagemService {
     	passeio.getEventos().add(evento);
     	
     	return passeioService.salvar(passeio);
+	}
+    
+    public Transporte adicionarTransporte(long id, TransporteDTO transporteDTO, Usuario usuario) throws ParseException {
+    	Viagem viagem = this.buscarPorId(id);
+    	
+    	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
+    	
+    	return transporteService.adicionarTrasporte(transporteDTO, viagem);
 	}
     
     public void verificarSeUsuarioLogadoGerenciaViagem(Viagem viagem, Usuario usuario) {
