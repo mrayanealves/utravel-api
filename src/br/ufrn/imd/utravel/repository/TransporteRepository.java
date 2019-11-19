@@ -5,28 +5,27 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
 
-import br.ufrn.imd.utravel.model.VeiculoAlugado;
+import br.ufrn.imd.utravel.model.Transporte;
 
 @Stateless
-public class VeiculoAlugadoRepository extends AbstractRepository<VeiculoAlugado>{
-	
+public class TransporteRepository extends AbstractRepository<Transporte>{
 	@Override
     @SuppressWarnings("unchecked")
-    public List<VeiculoAlugado> buscarTodos() {
-        return (List<VeiculoAlugado>) em.createQuery("select v from VeiculoAlugado v").getResultList();
+    public List<Transporte> buscarTodos() {
+        return (List<Transporte>) em.createQuery("select t from Transporte t").getResultList();
     }
 
     @Override
-    public VeiculoAlugado buscarPorId(long id) {
+    public Transporte buscarPorId(long id) {
         try {
-            return (VeiculoAlugado) em.find(VeiculoAlugado.class, id);
+            return (Transporte) em.find(Transporte.class, id);
         } catch (NoResultException e) {
             return null;
         }
     }
 
     @Override
-    public VeiculoAlugado salvar(VeiculoAlugado entity) {
+    public Transporte salvar(Transporte entity) {
     	if (entity.getId() == 0) {
         	em.persist(entity);
             em.flush();
@@ -37,7 +36,7 @@ public class VeiculoAlugadoRepository extends AbstractRepository<VeiculoAlugado>
     }
 
     @Override
-    public void remover(VeiculoAlugado entity) {
+    public void remover(Transporte entity) {
         em.remove(entity);
     }
 }

@@ -40,6 +40,10 @@ public class Transporte extends AbstractModel {
     @ManyToOne
     @JoinColumn(name = "id_veiculo_alugado")
     private VeiculoAlugado veiculoAlugado;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_informacoes_transporte_proprio")
+    private InformacoesTransporteProprio informacoesTransporteProprio;
 
     @OneToMany
     @JoinColumn(name = "id_transporte")
@@ -49,12 +53,13 @@ public class Transporte extends AbstractModel {
     }
 
     public Transporte(long id, @NotNull boolean proprio, EnumTipoTransporte tipoTransporte, Viagem viagem,
-                      VeiculoAlugado veiculoAlugado, List<Passagem> passagens) {
+                      VeiculoAlugado veiculoAlugado, InformacoesTransporteProprio informacoesTransporteProprio, List<Passagem> passagens) {
         this.id = id;
         this.proprio = proprio;
         this.tipoTransporte = tipoTransporte;
         this.viagem = viagem;
         this.veiculoAlugado = veiculoAlugado;
+        this.informacoesTransporteProprio = informacoesTransporteProprio;
         this.passagens = passagens;
     }
 
@@ -100,7 +105,15 @@ public class Transporte extends AbstractModel {
         this.veiculoAlugado = veiculoAlugado;
     }
 
-    public List<Passagem> getPassagens() {
+    public InformacoesTransporteProprio getInformacoesTransporteProprio() {
+		return informacoesTransporteProprio;
+	}
+
+	public void setInformacoesTransporteProprio(InformacoesTransporteProprio informacoesTransporteProprio) {
+		this.informacoesTransporteProprio = informacoesTransporteProprio;
+	}
+
+	public List<Passagem> getPassagens() {
         return passagens;
     }
 

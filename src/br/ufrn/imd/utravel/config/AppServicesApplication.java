@@ -35,7 +35,7 @@ public class AppServicesApplication extends Application {
         resources.add(PasseioController.class);
         resources.add(RestauranteController.class);
         resources.add(UsuarioController.class);
-        resources.add(VeiculoAlugadoController.class);
+        resources.add(VeiculoController.class);
         resources.add(ViagemController.class);
         resources.add(OrcamentoController.class);
 
