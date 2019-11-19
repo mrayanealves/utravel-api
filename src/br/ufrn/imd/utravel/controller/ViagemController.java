@@ -2,7 +2,7 @@ package br.ufrn.imd.utravel.controller;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ReservaDTO;
-import br.ufrn.imd.utravel.dto.RestauranteDTO;
+import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
@@ -96,12 +96,12 @@ public class ViagemController {
     @Produces("application/json; charset=UTF-8")
     @Path("/{id}/adicionar/reserva/hospedagem")
     @Secured
-    public Response adicionarReservaHospedagem(@PathParam("id") long id, ReservaDTO hospedagemDTO, 
+    public Response adicionarReservaHospedagem(@PathParam("id") long id, ReservaDTO reservaDTO, 
     										@Context SecurityContext securityContext) {
     	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
     	try {
-			return Response.ok(viagemService.adicionarReservaHospedagem(id, hospedagemDTO, usuario)).build();
+			return Response.ok(viagemService.adicionarReservaHospedagem(id, reservaDTO, usuario)).build();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			
@@ -114,12 +114,12 @@ public class ViagemController {
     @Produces("application/json; charset=UTF-8")
     @Path("/{id}/adicionar/restaurante")
     @Secured
-    public Response adicionarRestaurante(@PathParam("id") long id, RestauranteDTO restauranteDTO, 
+    public Response adicionarRestaurante(@PathParam("id") long id, AlimentacaoDTO alimentacaoDTO, 
     										@Context SecurityContext securityContext) {
     	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
     	try {
-			return Response.ok(viagemService.adicionarRestaurantes(id, restauranteDTO, usuario)).build();
+			return Response.ok(viagemService.adicionarRestaurantes(id, alimentacaoDTO, usuario)).build();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			

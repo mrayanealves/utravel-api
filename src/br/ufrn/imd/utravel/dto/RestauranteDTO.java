@@ -1,31 +1,49 @@
 package br.ufrn.imd.utravel.dto;
 
 public class RestauranteDTO {
-	private String dataIdaPrevista;
-	private float valorGastoPrevisto;
-	private long restaurante;
+	private long idRestaurante;
+	private String nomeRestaurante;
+	private int numeroEstrela;
+	private EnderecoDTO enderecoDTO;
+	private EmpresaDTO empresaDTO;
 	
-	public String getDataIdaPrevista() {
-		return dataIdaPrevista;
-	}
-	
-	public void setDataIdaPrevista(String dataIdaPrevista) {
-		this.dataIdaPrevista = dataIdaPrevista;
+	public long getIdRestaurante() {
+		return idRestaurante;
 	}
 	
-	public float getValorGastoPrevisto() {
-		return valorGastoPrevisto;
-	}
-
-	public void setValorGastoPrevisto(float valorGastoPrevisto) {
-		this.valorGastoPrevisto = valorGastoPrevisto;
+	public void setIdRestaurante(long idRestaurante) {
+		this.idRestaurante = idRestaurante;
 	}
 	
-	public long getRestaurante() {
-		return restaurante;
+	public String getNomeRestaurante() {
+		return nomeRestaurante;
 	}
-
-	public void setRestaurante(long restaurante) {
-		this.restaurante = restaurante;
+	
+	public void setNomeRestaurante(String nomeRestaurante) {
+		this.nomeRestaurante = nomeRestaurante;
+	}
+	
+	public int getNumeroEstrela() {
+		return numeroEstrela;
+	}
+	
+	public void setNumeroEstrela(int numeroEstrela) {
+		this.numeroEstrela = numeroEstrela;
+	}
+	
+	public EnderecoDTO getEnderecoDTO() {
+		return enderecoDTO;
+	}
+	
+	public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
+		this.enderecoDTO = enderecoDTO;
+	}
+	
+	public EmpresaDTO getEmpresaDTO() {
+		return empresaDTO;
+	}
+	
+	public void setEmpresaDTO(EmpresaDTO empresaDTO) {
+		this.empresaDTO = empresaDTO;
 	}
 }

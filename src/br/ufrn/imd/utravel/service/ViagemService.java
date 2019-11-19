@@ -2,7 +2,7 @@ package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
 import br.ufrn.imd.utravel.dto.ReservaDTO;
-import br.ufrn.imd.utravel.dto.RestauranteDTO;
+import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.exception.InvalidOperationException;
 import br.ufrn.imd.utravel.model.Evento;
@@ -118,18 +118,29 @@ public class ViagemService {
     	return reservaService.salvar(reservaDTO, viagem);
 	}
     
-    public Restaurante adicionarRestaurantes(long id, RestauranteDTO restauranteDTO, Usuario usuario) throws ParseException {
+    public Restaurante adicionarRestaurantes(long id, AlimentacaoDTO alimentacaoDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
-    	Restaurante restaurante = restauranteService.buscarPorId(restauranteDTO.getRestaurante());
+    	Restaurante restaurante = new Restaurante();
     	
-    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(restauranteDTO.getDataIdaPrevista());
+    	if (alimentacaoDTO.getRestauranteDTO().getIdRestaurante() != 0) {
+    		restaurante = restauranteService.buscarPorId(alimentacaoDTO.getRestauranteDTO().getIdRestaurante());
+		} else {
+			restaurante = restauranteService.montarRestaurante(alimentacaoDTO.getRestauranteDTO());
+			
+			restaurante = restauranteService.salvar(restaurante);
+		}
+    	
+    	
+    	
+    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(alimentacaoDTO.getDataIdaPrevista());
     	
     	Evento evento = new Evento();
+    	
     	evento.setDataInicio(dataInicio);
-    	evento.setValorEstimado(restauranteDTO.getValorGastoPrevisto());
+    	evento.setValorEstimado(alimentacaoDTO.getValorGastoPrevisto());
     	evento.setRestaurante(restaurante);
     	evento.setViagem(viagem);
     	
