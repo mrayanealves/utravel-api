@@ -29,7 +29,7 @@ public class EmpresaService extends AbstractService<Empresa> {
         return this.repository;
     }
     
-    public Empresa avaliar(long id, AvaliacaoDTO avaliacaoDTO, Usuario usuario) {
+    public Avaliacao avaliar(long id, AvaliacaoDTO avaliacaoDTO, Usuario usuario) {
     	Empresa empresa = this.buscarPorId(id);
     	
     	if (empresa == null) {
@@ -43,7 +43,7 @@ public class EmpresaService extends AbstractService<Empresa> {
     	
     	avaliacao.setEmpresa(empresa);
     	
-		return avaliacaoService.salvar(avaliacao).getEmpresa();
+		return avaliacaoService.salvar(avaliacao);
 	}
     
     public Empresa montarEmpresa(EmpresaDTO empresaDTO) {
@@ -51,6 +51,11 @@ public class EmpresaService extends AbstractService<Empresa> {
     	
     	if (empresaDTO.getEnderecoSede().getIdEndereco() != 0) {
 			endereco = enderecoService.buscarPorId(empresaDTO.getIdEmpresa());
+			
+			if (endereco == null) {
+	    		throw new EntityNotFoundException("Não foi possível localizar um endereço com este id.");
+			}
+			
 		} else {
 			endereco = enderecoService.buscarEndereco(empresaDTO.getEnderecoSede());
 			

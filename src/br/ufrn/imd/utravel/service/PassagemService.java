@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 import br.ufrn.imd.utravel.dto.EnderecoDTO;
 import br.ufrn.imd.utravel.dto.PassagemDTO;
@@ -41,6 +42,10 @@ public class PassagemService extends AbstractService<Passagem>{
 		
 		if (passagemDTO.getEnderecoSaidaOrigem().getIdEndereco() != 0) {
 			enderecoSaidaOrigem = enderecoService.buscarPorId(passagemDTO.getEnderecoSaidaOrigem().getIdEndereco());
+			
+			if (enderecoSaidaOrigem == null) {
+	    		throw new EntityNotFoundException("Não foi possível localizar um endereço com este id.");
+			}
 		} else {
 			enderecoSaidaOrigem = enderecoService.buscarEndereco(passagemDTO.getEnderecoSaidaOrigem());
 			
@@ -53,6 +58,10 @@ public class PassagemService extends AbstractService<Passagem>{
 		
 		if (passagemDTO.getEnderecoChegadaDestino().getIdEndereco() != 0) {
 			enderecoChegadaDestino = enderecoService.buscarPorId(passagemDTO.getEnderecoChegadaDestino().getIdEndereco());
+		
+			if (enderecoChegadaDestino == null) {
+	    		throw new EntityNotFoundException("Não foi possível localizar um endereço com este id.");
+			}
 		} else {
 			enderecoChegadaDestino = enderecoService.buscarEndereco(passagemDTO.getEnderecoChegadaDestino());
 			
@@ -69,6 +78,10 @@ public class PassagemService extends AbstractService<Passagem>{
 				
 				if (enderecoParada.getIdEndereco() != 0) {
 					endereco = enderecoService.buscarPorId(enderecoParada.getIdEndereco());
+					
+					if (endereco == null) {
+			    		throw new EntityNotFoundException("Não foi possível localizar um endereço com este id.");
+					}
 				} else {
 					endereco = enderecoService.buscarEndereco(enderecoParada);
 					
@@ -85,6 +98,10 @@ public class PassagemService extends AbstractService<Passagem>{
 		
 		if (passagemDTO.getEmpresaDTO().getIdEmpresa() != 0) {
 			empresa = empresaService.buscarPorId(passagemDTO.getEmpresaDTO().getIdEmpresa());
+			
+			if (empresa == null) {
+	    		throw new EntityNotFoundException("Não foi possível localizar uma empresa com este id.");
+			}
 		} else {
 			empresa = empresaService.montarEmpresa(passagemDTO.getEmpresaDTO());
 			

@@ -91,6 +91,10 @@ public class ViagemService {
     									 Usuario usuario) {
     	Viagem viagem = this.buscarPorId(id);
     	
+    	if (viagem == null) {
+    		throw new EntityNotFoundException("Não foi possível localizar uma viagem com este id.");
+		}
+    	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
     	if (grupoUsuariosDTO.getEmailUsuarios().isEmpty()) {
@@ -123,6 +127,10 @@ public class ViagemService {
     public Reserva adicionarReservaHospedagem(long id, ReservaDTO reservaDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
+    	if (viagem == null) {
+    		throw new EntityNotFoundException("Não foi possível localizar uma viagem com este id.");
+		}
+    	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
     	return reservaService.salvar(reservaDTO, viagem);
@@ -130,6 +138,10 @@ public class ViagemService {
     
     public Restaurante adicionarRestaurantes(long id, AlimentacaoDTO alimentacaoDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
+    	
+    	if (viagem == null) {
+    		throw new EntityNotFoundException("Não foi possível localizar uma viagem com este id.");
+		}
     	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
@@ -161,6 +173,10 @@ public class ViagemService {
     public Passeio adicionarPasseios(long id, TurismoDTO turismoDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
+    	if (viagem == null) {
+    		throw new EntityNotFoundException("Não foi possível localizar uma viagem com este id.");
+		}
+    	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
     	Passeio passeio = new Passeio();
@@ -190,6 +206,10 @@ public class ViagemService {
     
     public Transporte adicionarTransporte(long id, TransporteDTO transporteDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
+    	
+    	if (viagem == null) {
+    		throw new EntityNotFoundException("Não foi possível localizar uma viagem com este id.");
+		}
     	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	

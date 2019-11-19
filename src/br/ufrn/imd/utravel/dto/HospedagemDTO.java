@@ -4,6 +4,7 @@ import br.ufrn.imd.utravel.enums.EnumTipoHospedagem;
 
 public class HospedagemDTO {
 	private long idHospedagem;
+	private String titulo;
 	private EnumTipoHospedagem tipoHospedagem;
 	private EnderecoDTO enderecoDTO;
 	private EmpresaDTO empresaDTO;
@@ -16,6 +17,14 @@ public class HospedagemDTO {
 		this.idHospedagem = idHospedagem;
 	}
 	
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
 	public EnumTipoHospedagem getTipoHospedagem() {
 		return tipoHospedagem;
 	}
