@@ -34,7 +34,8 @@ public class Passeio extends AbstractModel {
 
     private String tipo;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "empresa_passeio",
             joinColumns = @JoinColumn(name = "id_passeio", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_empresa", referencedColumnName = "id")

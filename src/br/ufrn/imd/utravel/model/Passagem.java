@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Passagem extends AbstractModel {
     @JoinColumn(name = "id_endereco_chegada_destino")
     private Endereco enderecoChegadaDestino;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "passagem_enderecos_paradas",
             joinColumns = @JoinColumn(name = "id_passagem", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_endereco_paradas", referencedColumnName = "id")
