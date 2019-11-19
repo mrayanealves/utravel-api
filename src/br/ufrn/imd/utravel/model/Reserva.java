@@ -3,6 +3,7 @@ package br.ufrn.imd.utravel.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Reserva extends AbstractModel{
     private Hospedagem hospedagem;
     
     @JsonIgnore
-    @OneToMany(mappedBy = "reserva")
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL)
     private List<Evento> eventos;
 
 	public Reserva() {
