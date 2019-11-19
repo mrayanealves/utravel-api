@@ -56,6 +56,7 @@ public class TransporteService extends AbstractService<Transporte>{
 					evento.setTitulo("Passagem da viagem");
 					evento.setDataInicio(passagem.getDataPartida());
 					evento.setDataFinal(passagem.getDataChegada());
+					evento.setValorEstimado(passagemDTO.getValorGasto());
 					evento.setViagem(viagem);
 					evento.setPassagem(passagem);
 					
@@ -83,6 +84,7 @@ public class TransporteService extends AbstractService<Transporte>{
 			evento.setTitulo("Alguel de veículo");
 			evento.setDataInicio(dataInicio);
 			evento.setDataFinal(dataFim);
+			evento.setValorEstimado(transporteDTO.getVeiculoAlugadoDTO().getValorGastoPrevisto());
 			evento.setViagem(viagem);
 			evento.setVeiculoAlugado(veiculoAlugado);
 			

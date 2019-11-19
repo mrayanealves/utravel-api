@@ -38,6 +38,7 @@ public class AppServicesApplication extends Application {
         resources.add(VeiculoController.class);
         resources.add(ViagemController.class);
         resources.add(OrcamentoController.class);
+        resources.add(VeiculoAlugadoController.class);
 
         // Providers
         resources.add(CorsFilter.class);

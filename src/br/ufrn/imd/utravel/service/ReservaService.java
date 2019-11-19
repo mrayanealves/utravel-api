@@ -31,17 +31,12 @@ public class ReservaService {
 		return repository.buscarTodos();
 	}
 
-	@SuppressWarnings("null")
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Reserva buscarPorId(long id) {
 		Reserva entity = repository.buscarPorId(id);
 
 		if (entity == null) {
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.append("Não foi possível localizar um (a) ").append(entity.getClass().getName())
-					.append(" com este id.");
-
-			throw new EntityNotFoundException(stringBuilder.toString());
+    		throw new EntityNotFoundException("Não foi possível localizar uma reserva com este id.");
 		}
 
 		return entity;
@@ -52,6 +47,10 @@ public class ReservaService {
 		
 		if (reservaDTO.getHospedagemDTO().getIdHospedagem() != 0) {
 			hospedagem = hospedagemService.buscarPorId(reservaDTO.getHospedagemDTO().getIdHospedagem());
+			
+			if (hospedagem == null) {
+	    		throw new EntityNotFoundException("Não foi possível localizar uma hospedagem com este id.");
+			}
 		} else {
 			hospedagem = hospedagemService.montarHospedagem(reservaDTO.getHospedagemDTO());
 			

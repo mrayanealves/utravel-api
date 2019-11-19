@@ -2,6 +2,7 @@ package br.ufrn.imd.utravel.service;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 
 import br.ufrn.imd.utravel.dto.InformacoesVeiculoProprioDTO;
 import br.ufrn.imd.utravel.model.InformacoesTransporteProprio;
@@ -27,6 +28,11 @@ public class InformacoesTransporteProprioService extends AbstractService<Informa
 		
 		if (informacoesVeiculoProprioDTO.getVeiculoDTO().getIdVeiculo() != 0) {
 			veiculo = veiculoService.buscarPorId(informacoesVeiculoProprioDTO.getVeiculoDTO().getIdVeiculo());
+			
+			if (veiculo == null) {
+	    		throw new EntityNotFoundException("Não foi possível localizar um veiculo com este id.");
+			}
+			
 		} else {
 			veiculo = veiculoService.montarVeiculo(informacoesVeiculoProprioDTO.getVeiculoDTO());
 			

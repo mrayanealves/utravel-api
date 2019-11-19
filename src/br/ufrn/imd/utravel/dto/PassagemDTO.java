@@ -5,6 +5,7 @@ import java.util.List;
 public class PassagemDTO {
 	private String dataPartida;
 	private String dataChegada;
+	private float valorGasto;
 	private EnderecoDTO enderecoSaidaOrigem;
 	private EnderecoDTO enderecoChegadaDestino;
 	private List<EnderecoDTO> enderecosParadas;
@@ -26,6 +27,14 @@ public class PassagemDTO {
 		this.dataChegada = dataChegada;
 	}
 	
+	public float getValorGasto() {
+		return valorGasto;
+	}
+
+	public void setValorGasto(float valorGasto) {
+		this.valorGasto = valorGasto;
+	}
+
 	public EnderecoDTO getEnderecoSaidaOrigem() {
 		return enderecoSaidaOrigem;
 	}

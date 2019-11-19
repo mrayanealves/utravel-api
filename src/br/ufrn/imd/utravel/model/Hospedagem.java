@@ -24,6 +24,8 @@ public class Hospedagem extends AbstractModel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_HOSPEDAGEM")
     @SequenceGenerator(name = "SEQ_HOSPEDAGEM", sequenceName = "seq_id_hospedagem", allocationSize = 1)
     private long id;
+    
+    private String titulo;
 
     @Column(name = "tipo_hospedagem")
     @Enumerated(EnumType.ORDINAL)
@@ -40,9 +42,10 @@ public class Hospedagem extends AbstractModel {
     public Hospedagem() {
     }
 
-    public Hospedagem(long id, @NotBlank String codigo, int quantidadeQuartos, EnumTipoHospedagem tipoHospedagem,
+    public Hospedagem(long id, String titulo, @NotBlank String codigo, int quantidadeQuartos, EnumTipoHospedagem tipoHospedagem,
                       Endereco endereco, List<Avaliacao> avaliacoes, Empresa empresa) {
         this.id = id;
+        this.titulo = titulo;
         this.tipoHospedagem = tipoHospedagem;
         this.endereco = endereco;
         this.empresa = empresa;
@@ -58,7 +61,15 @@ public class Hospedagem extends AbstractModel {
         return this.id;
     }
 
-    public EnumTipoHospedagem getTipoHospedagem() {
+    public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public EnumTipoHospedagem getTipoHospedagem() {
         return tipoHospedagem;
     }
 

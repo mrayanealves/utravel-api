@@ -13,30 +13,23 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import br.ufrn.imd.utravel.dto.AvaliacaoDTO;
-import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.security.Secured;
-import br.ufrn.imd.utravel.service.AbstractService;
-import br.ufrn.imd.utravel.service.RestauranteService;
 import br.ufrn.imd.utravel.service.UsuarioService;
+import br.ufrn.imd.utravel.service.VeiculoAlugadoService;
 import io.swagger.annotations.Api;
 
-@Api("Restaurante")
+@Api("VeiculoAlugado")
 @Stateless
-@Path("/restaurante")
-public class RestauranteController extends AbstractController<Restaurante> {
-    @EJB
-    private RestauranteService service;
-    
-    @EJB
+@Path("/veiculo/alugado")
+public class VeiculoAlugadoController {
+	@EJB 
+	private VeiculoAlugadoService service;
+	
+	@EJB
     private UsuarioService usuarioService;
-
-    @Override
-    protected AbstractService<Restaurante> service() {
-        return this.service;
-    }
-    
-    @POST
+	
+	@POST
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
     @Path("/{id}/avaliar")
