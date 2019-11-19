@@ -26,20 +26,18 @@ public class EventoRepository extends AbstractRepository<Evento>{
     }
 
     @Override
-    public Evento salvar(Evento evento) {
-        if (evento.getId() > 0) {
-            em.persist(evento);
-
-            return evento;
+    public Evento salvar(Evento entity) {
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.merge(evento);
-
-            return evento;
+            entity = em.merge(entity);
         }
+        return entity;
     }
 
     @Override
-    public void remover(Evento evento) {
-        em.remove(evento);
+    public void remover(Evento entity) {
+        em.remove(entity);
     }
 }

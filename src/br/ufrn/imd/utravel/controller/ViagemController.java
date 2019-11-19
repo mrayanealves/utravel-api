@@ -1,8 +1,9 @@
 package br.ufrn.imd.utravel.controller;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
-import br.ufrn.imd.utravel.dto.HospedagemDTO;
-import br.ufrn.imd.utravel.dto.RestauranteDTO;
+import br.ufrn.imd.utravel.dto.ReservaDTO;
+import br.ufrn.imd.utravel.dto.TurismoDTO;
+import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
@@ -94,14 +95,14 @@ public class ViagemController {
     @POST
     @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    @Path("/{id}/adicionar/hospedagem")
+    @Path("/{id}/adicionar/reserva/hospedagem")
     @Secured
-    public Response adicionarHospedagem(@PathParam("id") long id, HospedagemDTO hospedagemDTO, 
+    public Response adicionarReservaHospedagem(@PathParam("id") long id, ReservaDTO reservaDTO, 
     										@Context SecurityContext securityContext) {
     	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
     	try {
-			return Response.ok(viagemService.adicionarHospedagem(id, hospedagemDTO, usuario)).build();
+			return Response.ok(viagemService.adicionarReservaHospedagem(id, reservaDTO, usuario)).build();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			
@@ -114,12 +115,30 @@ public class ViagemController {
     @Produces("application/json; charset=UTF-8")
     @Path("/{id}/adicionar/restaurante")
     @Secured
-    public Response adicionarRestaurante(@PathParam("id") long id, RestauranteDTO restauranteDTO, 
+    public Response adicionarRestaurante(@PathParam("id") long id, AlimentacaoDTO alimentacaoDTO, 
     										@Context SecurityContext securityContext) {
     	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
     	
     	try {
-			return Response.ok(viagemService.adicionarRestaurantes(id, restauranteDTO, usuario)).build();
+			return Response.ok(viagemService.adicionarRestaurantes(id, alimentacaoDTO, usuario)).build();
+		} catch (ParseException e) {
+			e.printStackTrace();
+			
+            return Response.status(Response.Status.BAD_REQUEST).encoding("O formato padrão das datas é dd/MM/yyyy.").build();
+		}
+    }
+    
+    @POST
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
+    @Path("/{id}/adicionar/passeio")
+    @Secured
+    public Response adicionarPasseio(@PathParam("id") long id, TurismoDTO turismoDTO, 
+    										@Context SecurityContext securityContext) {
+    	Usuario usuario = usuarioService.buscarUsuarioPorEmail(securityContext.getUserPrincipal().getName());
+    	
+    	try {
+			return Response.ok(viagemService.adicionarPasseios(id, turismoDTO, usuario)).build();
 		} catch (ParseException e) {
 			e.printStackTrace();
 			

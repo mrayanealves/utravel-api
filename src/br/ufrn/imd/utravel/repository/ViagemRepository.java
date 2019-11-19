@@ -26,10 +26,11 @@ public class ViagemRepository extends AbstractRepository<Viagem> {
 
     @Override
     public Viagem salvar(Viagem entity) {
-        if (entity.getId() > 0) {
-            em.merge(entity);
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.persist(entity);
+            entity = em.merge(entity);
         }
         return entity;
     }

@@ -29,15 +29,13 @@ public class LocalizacaoRepository extends AbstractRepository<Localizacao> {
 
     @Override
     public Localizacao salvar(Localizacao entity) {
-        if (entity.getId() > 0) {
-            em.merge(entity);
-
-            return entity;
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.persist(entity);
-
-            return entity;
+            entity = em.merge(entity);
         }
+        return entity;
     }
 
     @Override

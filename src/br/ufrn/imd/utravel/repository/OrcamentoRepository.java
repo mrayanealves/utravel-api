@@ -26,10 +26,11 @@ public class OrcamentoRepository extends AbstractRepository<Orcamento> {
 
     @Override
     public Orcamento salvar(Orcamento entity) {
-        if (entity.getId() > 0) {
-            em.merge(entity);
+    	if (entity.getId() == 0) {
+        	em.persist(entity);
+            em.flush();
         } else {
-            em.persist(entity);
+            entity = em.merge(entity);
         }
         return entity;
     }

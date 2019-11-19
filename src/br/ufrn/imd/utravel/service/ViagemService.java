@@ -1,12 +1,14 @@
 package br.ufrn.imd.utravel.service;
 
 import br.ufrn.imd.utravel.dto.GrupoUsuariosDTO;
-import br.ufrn.imd.utravel.dto.HospedagemDTO;
-import br.ufrn.imd.utravel.dto.RestauranteDTO;
+import br.ufrn.imd.utravel.dto.ReservaDTO;
+import br.ufrn.imd.utravel.dto.TurismoDTO;
+import br.ufrn.imd.utravel.dto.AlimentacaoDTO;
 import br.ufrn.imd.utravel.dto.ViagemDTO;
 import br.ufrn.imd.utravel.exception.InvalidOperationException;
 import br.ufrn.imd.utravel.model.Evento;
-import br.ufrn.imd.utravel.model.Hospedagem;
+import br.ufrn.imd.utravel.model.Passeio;
+import br.ufrn.imd.utravel.model.Reserva;
 import br.ufrn.imd.utravel.model.Restaurante;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.model.Viagem;
@@ -33,11 +35,14 @@ public class ViagemService {
     @Inject 
     private UsuarioService usuarioService;
     
-    @Inject 
-    private HospedagemService hospedagemService;
-    
     @Inject
     private RestauranteService restauranteService;
+    
+    @Inject
+    private ReservaService reservaService;
+    
+    @Inject
+    private PasseioService passeioService;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<Viagem> buscarTodos() {
@@ -110,32 +115,72 @@ public class ViagemService {
     	return viagemRepository.salvar(viagem);
     }
     
-    public Hospedagem adicionarHospedagem(long id, HospedagemDTO hospedagemDTO, Usuario usuario) throws ParseException {
+    public Reserva adicionarReservaHospedagem(long id, ReservaDTO reservaDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
-    	return hospedagemService.salvar(hospedagemDTO, usuario, viagem);
+    	return reservaService.salvar(reservaDTO, viagem);
 	}
     
-    public Restaurante adicionarRestaurantes(long id, RestauranteDTO restauranteDTO, Usuario usuario) throws ParseException {
+    public Restaurante adicionarRestaurantes(long id, AlimentacaoDTO alimentacaoDTO, Usuario usuario) throws ParseException {
     	Viagem viagem = this.buscarPorId(id);
     	
     	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
     	
-    	Restaurante restaurante = restauranteService.buscarPorId(restauranteDTO.getRestaurante());
+    	Restaurante restaurante = new Restaurante();
     	
-    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(restauranteDTO.getDataIdaPrevista());
+    	if (alimentacaoDTO.getRestauranteDTO().getIdRestaurante() != 0) {
+    		restaurante = restauranteService.buscarPorId(alimentacaoDTO.getRestauranteDTO().getIdRestaurante());
+		} else {
+			restaurante = restauranteService.montarRestaurante(alimentacaoDTO.getRestauranteDTO());
+			
+			restaurante = restauranteService.salvar(restaurante);
+		}
+    	
+    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(alimentacaoDTO.getDataIdaPrevista());
     	
     	Evento evento = new Evento();
+    	
+    	evento.setTitulo("Ida ao restaurante");
     	evento.setDataInicio(dataInicio);
-    	evento.setValorEstimado(restauranteDTO.getValorGastoPrevisto());
+    	evento.setValorEstimado(alimentacaoDTO.getValorGastoPrevisto());
     	evento.setRestaurante(restaurante);
     	evento.setViagem(viagem);
     	
     	restaurante.getEventos().add(evento);
     	
     	return restauranteService.salvar(restaurante);
+	}
+    
+    public Passeio adicionarPasseios(long id, TurismoDTO turismoDTO, Usuario usuario) throws ParseException {
+    	Viagem viagem = this.buscarPorId(id);
+    	
+    	this.verificarSeUsuarioLogadoGerenciaViagem(viagem, usuario);
+    	
+    	Passeio passeio = new Passeio();
+    	
+    	if (turismoDTO.getPasseioDTO().getIdPasseio() != 0) {
+			passeio = passeioService.buscarPorId(turismoDTO.getPasseioDTO().getIdPasseio());
+		} else {
+			passeio = passeioService.montarPasseio(turismoDTO.getPasseioDTO());
+			
+			passeio = passeioService.salvar(passeio);
+		}
+    	
+    	Date dataInicio = new SimpleDateFormat("dd/MM/yyyy").parse(turismoDTO.getDataPasseio());
+    	
+    	Evento evento = new Evento();
+    	
+    	evento.setTitulo("Passeio na viagem");
+    	evento.setDataInicio(dataInicio);
+    	evento.setValorEstimado(turismoDTO.getValorGastoPrevisto());
+    	evento.setPasseio(passeio);
+    	evento.setViagem(viagem);
+    	
+    	passeio.getEventos().add(evento);
+    	
+    	return passeioService.salvar(passeio);
 	}
     
     public void verificarSeUsuarioLogadoGerenciaViagem(Viagem viagem, Usuario usuario) {
