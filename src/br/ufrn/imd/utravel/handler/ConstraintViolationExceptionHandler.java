@@ -1,4 +1,4 @@
-package br.ufrn.imd.utravel.config;
+package br.ufrn.imd.utravel.handler;
 
 import br.ufrn.imd.utravel.exception.FieldError;
 

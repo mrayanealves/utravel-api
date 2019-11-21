@@ -1,7 +1,11 @@
 package br.ufrn.imd.utravel.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class Login {
+    @NotBlank
     private String email;
+    @NotBlank
     private String senha;
 
     public String getEmail() {
