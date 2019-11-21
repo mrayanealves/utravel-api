@@ -9,6 +9,7 @@ import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.UsuarioRepository;
 import br.ufrn.imd.utravel.security.JWTUtil;
+import sun.rmi.runtime.Log;
 
 @Stateless
 public class UsuarioService extends AbstractService<Usuario> {
@@ -20,7 +21,7 @@ public class UsuarioService extends AbstractService<Usuario> {
         return this.repository;
     }
 
-    public String login(Login login) throws Exception, LoginException {
+    public String login(Login login) throws LoginException {
         Usuario usuarioCadastrado = repository.buscarUsuarioPorEmailSenha(login.getEmail(),
                 login.getSenha());
 

@@ -1,6 +1,8 @@
 package br.ufrn.imd.utravel.config;
 
 import br.ufrn.imd.utravel.controller.*;
+import br.ufrn.imd.utravel.handler.ConstraintViolationExceptionHandler;
+import br.ufrn.imd.utravel.handler.LoginExceptionHandler;
 import br.ufrn.imd.utravel.security.AuthenticationFilter;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.listing.ApiListingResource;
@@ -43,7 +45,10 @@ public class AppServicesApplication extends Application {
 
         // Providers
         resources.add(CorsFilter.class);
+
+        // Handlers
         resources.add(ConstraintViolationExceptionHandler.class);
+        resources.add(LoginExceptionHandler.class);
 
         //classes do swagger...
         resources.add(ApiListingResource.class);
