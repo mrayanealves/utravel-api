@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import br.ufrn.imd.utravel.model.Evento;
 
@@ -23,6 +24,12 @@ public class EventoRepository extends AbstractRepository<Evento>{
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    public List buscarPorViagemId(long viagemId) {
+	    Query query =  em.createQuery("select e from Evento e where e.viagem.id = :viagemId");
+	    query.setParameter("viagemId", viagemId);
+	    return query.getResultList();
     }
 
     @Override

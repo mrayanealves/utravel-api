@@ -12,7 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -30,11 +30,12 @@ public class EventoController extends AbstractController<Evento> {
         return service;
     }
 
+    @GET
+    @Path("/buscarPorViagemId/{viagemId}")
+    @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
     @Secured
-    @Override
-    public Response buscarTodos() {
-        List<Evento> eventos = service.buscarTodos();
-        List<EventoDTO> eventosDTO = eventoMapper.eventoParaEventoDTO(eventos);
-        return Response.ok(eventosDTO).build();
+    public Response buscarPorViagemId(@PathParam("viagemId") long viagemId) {
+        return Response.ok(service.buscarPorViagemId(viagemId)).build();
     }
 }

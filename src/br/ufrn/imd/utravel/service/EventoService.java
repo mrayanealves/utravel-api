@@ -7,6 +7,8 @@ import br.ufrn.imd.utravel.model.Evento;
 import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.EventoRepository;
 
+import java.util.List;
+
 @Stateless
 public class EventoService extends AbstractService<Evento>{
 	@Inject
@@ -15,5 +17,9 @@ public class EventoService extends AbstractService<Evento>{
 	@Override
 	protected AbstractRepository<Evento> repository() {
 		return this.repository;
+	}
+
+	public List buscarPorViagemId(long viagemId) {
+		return repository.buscarPorViagemId(viagemId);
 	}
 }
