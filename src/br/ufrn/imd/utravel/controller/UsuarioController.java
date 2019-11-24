@@ -39,6 +39,7 @@ public class UsuarioController extends AbstractController<Usuario> {
 
     @POST
     @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
     @Path("/login")
     public Response login(@Valid Login login) throws LoginException {
         return Response.ok(service.login(login)).build();
