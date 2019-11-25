@@ -1,37 +1,41 @@
 package br.ufrn.imd.utravel.controller;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
-
+import br.ufrn.imd.utravel.dto.EventoDTO;
+import br.ufrn.imd.utravel.mapper.EventoMapper;
+import br.ufrn.imd.utravel.model.Evento;
 import br.ufrn.imd.utravel.security.Secured;
+import br.ufrn.imd.utravel.service.AbstractService;
 import br.ufrn.imd.utravel.service.EventoService;
 import io.swagger.annotations.Api;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Api("Evento")
 @Stateless
 @Path("/evento")
-public class EventoController {
+public class EventoController extends AbstractController<Evento> {
 	@EJB 
 	private EventoService service;
-	
-	@GET
-    @Produces("application/json; charset=UTF-8")
-    @Path("/")
-    @Secured
-    public Response buscarTodos() {
-        return Response.ok(service.buscarTodos()).build();
+	@Inject
+	private EventoMapper eventoMapper;
+
+    @Override
+    protected AbstractService<Evento> service() {
+        return service;
     }
 
     @GET
+    @Path("/buscarPorViagemId/{viagemId}")
+    @Consumes("application/json; charset=UTF-8")
     @Produces("application/json; charset=UTF-8")
-    @Path("/{id}")
     @Secured
-    public Response buscarPorId(@PathParam("id") long id) {
-        return Response.ok(service.buscarPorId(id)).build();
+    public Response buscarPorViagemId(@PathParam("viagemId") long viagemId) {
+        return Response.ok(service.buscarPorViagemId(viagemId)).build();
     }
 }

@@ -1,15 +1,15 @@
 package br.ufrn.imd.utravel.service;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
 import br.ufrn.imd.utravel.dto.Login;
+import br.ufrn.imd.utravel.dto.TokenDTO;
 import br.ufrn.imd.utravel.exception.LoginException;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.repository.AbstractRepository;
 import br.ufrn.imd.utravel.repository.UsuarioRepository;
 import br.ufrn.imd.utravel.security.JWTUtil;
-import sun.rmi.runtime.Log;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class UsuarioService extends AbstractService<Usuario> {
@@ -21,15 +21,19 @@ public class UsuarioService extends AbstractService<Usuario> {
         return this.repository;
     }
 
-    public String login(Login login) throws LoginException {
+    public TokenDTO login(Login login) throws LoginException {
         Usuario usuarioCadastrado = repository.buscarUsuarioPorEmailSenha(login.getEmail(),
                 login.getSenha());
 
         if (usuarioCadastrado == null) {
-            throw new LoginException();
+            throw new LoginException("Usuário ou senha incorretos.");
         }
 
-        return JWTUtil.create(usuarioCadastrado.getEmail());
+        return new TokenDTO(
+                JWTUtil.create(usuarioCadastrado.getEmail()),
+                usuarioCadastrado.getNome(),
+                usuarioCadastrado.getLogin(),
+                usuarioCadastrado.getEmail());
     }
 
     public Usuario buscarUsuarioPorEmail(String email) {

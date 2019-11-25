@@ -1,13 +1,12 @@
 package br.ufrn.imd.utravel.security;
 
-import java.util.Date;
-
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.util.Date;
 
 public class JWTUtil {
     private static String key = "L0G4N01T0K3NS3CR3T4T1ONNn40f4C01D314d0Qu3C0L0C4R4QU1";
@@ -25,7 +24,7 @@ public class JWTUtil {
                 .signWith(key)
                 .compact();
 
-        return "Bearer " + token;
+        return token;
     }
 
     public static Claims decode(String token) {

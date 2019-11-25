@@ -5,6 +5,7 @@ import br.ufrn.imd.utravel.exception.LoginException;
 import br.ufrn.imd.utravel.model.Usuario;
 import br.ufrn.imd.utravel.service.AbstractService;
 import br.ufrn.imd.utravel.service.UsuarioService;
+import io.swagger.annotations.Api;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+@Api("Usuario")
 @Stateless
 @Path("/usuario")
 public class UsuarioController extends AbstractController<Usuario> {
@@ -37,6 +39,7 @@ public class UsuarioController extends AbstractController<Usuario> {
 
     @POST
     @Consumes("application/json; charset=UTF-8")
+    @Produces("application/json; charset=UTF-8")
     @Path("/login")
     public Response login(@Valid Login login) throws LoginException {
         return Response.ok(service.login(login)).build();
