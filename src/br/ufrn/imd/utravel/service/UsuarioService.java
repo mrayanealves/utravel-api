@@ -31,6 +31,7 @@ public class UsuarioService extends AbstractService<Usuario> {
 
         return new TokenDTO(
                 JWTUtil.create(usuarioCadastrado.getEmail()),
+                usuarioCadastrado.getId(),
                 usuarioCadastrado.getNome(),
                 usuarioCadastrado.getLogin(),
                 usuarioCadastrado.getEmail());
