@@ -2,11 +2,13 @@ package br.ufrn.imd.utravel.dto;
 
 public class TokenDTO {
     private String token;
+    private long id;
     private String nome;
     private String login;
     private String email;
 
-    public TokenDTO(String token, String nome, String login, String email) {
+    public TokenDTO(String token, long id, String nome, String login, String email) {
+        this.id = id;
         this.token = token;
         this.nome = nome;
         this.login = login;
@@ -19,6 +21,14 @@ public class TokenDTO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
